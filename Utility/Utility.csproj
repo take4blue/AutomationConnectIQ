@@ -12,6 +12,11 @@
     <Authors>T.Fuse</Authors>
     <Company>Take4blue</Company>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>AutomationConnectIQ.Utility</PackageId>
+    <Product>AutomationConnectIQ</Product>
+    <Description>Garmin Connect IQの開発を自動化するためのツール
+そのユーティリティ関数群</Description>
+    <Copyright>Copy Right 2018 Take4-blue.</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
