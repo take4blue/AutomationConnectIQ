@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationConnectIQ", "AutomationConnectIQ\AutomationConnectIQ.csproj", "{9D00164E-842E-47E7-B86A-E44D3923E002}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{DE7DFD4B-531E-4E18-9DCD-DBF1F63E32B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutomationConnectIQConsole", "AutomationConnectIQConsole\AutomationConnectIQConsole.csproj", "{0F2D5D8F-951A-491E-9470-328E169E88CD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityTests", "UtilityTests\UtilityTests.csproj", "{F140C1ED-A74F-45B5-9AA7-39807DA0C924}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestWith", "TestWith", "{5BC7928C-B489-4C53-BF3C-B6DCA87CC268}"
+	ProjectSection(SolutionItems) = preProject
+		With\Test.runsettings = With\Test.runsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowerShell", "PowerShell", "{D6EE79A5-678B-40D7-9570-32BB293DB9EC}"
+	ProjectSection(SolutionItems) = preProject
+		Test1\Test1.ps1 = Test1\Test1.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D00164E-842E-47E7-B86A-E44D3923E002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D00164E-842E-47E7-B86A-E44D3923E002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D00164E-842E-47E7-B86A-E44D3923E002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D00164E-842E-47E7-B86A-E44D3923E002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE7DFD4B-531E-4E18-9DCD-DBF1F63E32B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7DFD4B-531E-4E18-9DCD-DBF1F63E32B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE7DFD4B-531E-4E18-9DCD-DBF1F63E32B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7DFD4B-531E-4E18-9DCD-DBF1F63E32B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2D5D8F-951A-491E-9470-328E169E88CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2D5D8F-951A-491E-9470-328E169E88CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2D5D8F-951A-491E-9470-328E169E88CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2D5D8F-951A-491E-9470-328E169E88CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F140C1ED-A74F-45B5-9AA7-39807DA0C924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F140C1ED-A74F-45B5-9AA7-39807DA0C924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F140C1ED-A74F-45B5-9AA7-39807DA0C924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F140C1ED-A74F-45B5-9AA7-39807DA0C924}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BDF587BA-D09C-4426-BD32-5BCB1DA6585C}
+	EndGlobalSection
+EndGlobal
