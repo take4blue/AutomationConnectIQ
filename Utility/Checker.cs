@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Management.Automation;
-using System.Management.Automation.Runspaces;
+﻿using System.IO;
+
+// マクロ UsePSFILE はPowerShellスクリプトファイルをシミュレーター動作で使用するためのマクロ
 
 namespace AutomationConnectIQ.Lib
 {
@@ -14,6 +9,7 @@ namespace AutomationConnectIQ.Lib
     /// </summary>
     public class Checker
     {
+#if UsePSFILE
         /// <summary>
         /// PSファイルにシミュレーション操作を任せたチェッカー
         /// </summary>
@@ -55,6 +51,7 @@ namespace AutomationConnectIQ.Lib
             }
             return true;
         }
+#endif
 
         private static bool Check(GarminSDK sdk, Jungle project, string device, Simulation func, Simulator simulator)
         {
@@ -78,7 +75,7 @@ namespace AutomationConnectIQ.Lib
         /// <returns>シミュレーションが完了したらtrueを返すようにする</returns>
         public delegate bool Simulation(string device, Simulator sim);
 
-        #region パラメータ類
+#region パラメータ類
         /// <summary>
         /// ビルド時のキーファイル
         /// </summary>
@@ -88,12 +85,13 @@ namespace AutomationConnectIQ.Lib
         /// ビルド時のプロジェクト(monkey.jungle)ファイル
         /// </summary>
         public string Project { set; private get; } = "";
-
+#if UsePSFILE
         /// <summary>
         /// テスト用のPowerShellスクリプトファイル<br/>
         /// ファイルが設定されていない場合はビルドのみ
         /// </summary>
         public string PSFile { set; private get; } = "";
+#endif
 
         /// <summary>
         /// 出力用のログファイル<br/>
@@ -107,6 +105,7 @@ namespace AutomationConnectIQ.Lib
         public System.IO.StreamWriter Writer { set; private get; } = null;
         #endregion
 
+#if UsePSFILE
         /// <summary>
         /// 指定されたデバイスに対して、ビルド＆チェックを実施する
         /// </summary>
@@ -153,6 +152,7 @@ namespace AutomationConnectIQ.Lib
             }
             return result;
         }
+#endif
 
         /// <summary>
         /// 指定されたデバイスに対して、ビルド＆チェックを実施する
@@ -197,6 +197,7 @@ namespace AutomationConnectIQ.Lib
             return result;
         }
 
+#if UsePSFILE
         /// <summary>
         /// 全デバイスに対してチェックを実施する
         /// </summary>
@@ -253,6 +254,7 @@ namespace AutomationConnectIQ.Lib
             }
             return result;
         }
+#endif
 
         /// <summary>
         /// 全デバイスに対してチェックを実施する
