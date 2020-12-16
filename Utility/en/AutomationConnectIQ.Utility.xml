@@ -1,0 +1,837 @@
+<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>AutomationConnectIQ.Utility</name>
+  </assembly>
+  <members>
+    <member name="T:AutomationConnectIQ.Lib.Checker">
+      <summary>
+        Utility class that builds and checks automatically
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Checker.Simulation">
+      <summary>
+        Delegate processing of the simulation part used in the check
+      </summary>
+      <param name="device">Device name to be checked</param>
+      <param name="sim">For simulator processing</param>
+      <returns>Return true when simulation is complete</returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Checker.PrePostAction">
+      <summary>
+        Delegate processing of the processing part performed before and after the check<br/>
+        Mainly for making the simulator preset etc.
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Checker.Key">
+      <summary>
+        Key file used in build
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Checker.Project">
+      <summary>
+        Project file used for build<br/>
+        (monkey.jungle)
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Checker.LogFile">
+      <summary>
+        Log file for output<br/>
+        If Writer is non-null, that will take precedence
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Checker.Writer">
+      <summary>
+        Stream to output log file
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation)">
+      <summary>
+        Perform build &amp; check for the specified device
+      </summary>
+      <param name="device">Device name to be checked</param>
+      <param name="sim">For simulator processing</param>
+      <returns>Return true when simulation is complete</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.Boolean,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction,AutomationConnectIQ.Lib.Checker.PrePostAction)">
+      <summary>
+        Check all devices
+      </summary>
+      <param name="isBreak">If you get an error on any one device, stop there</param>
+      <param name="func">For simulator processing</param>
+      <param name="pre">Device simulation pre-processing</param>
+      <param name="post">Device simulation post-processing</param>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.IEnvironment">
+      <summary>
+        Extract environment information for Connect IQ
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.IEnvironment.AppBase">
+      <summary>
+        Connect IQ storage information
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.GarminSDK">
+      <summary>
+        Classes for handling Connect IQ related files
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.GarminSDK.SdkFolder">
+      <summary>
+        Folder name of the current SDK
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.GarminSDK.Version">
+      <summary>
+        Current SDK version
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.GarminSDK.Key">
+      <summary>
+        Key file used in build
+      </summary>
+      <remarks>If not set, it will always be false in the build</remarks>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.GarminSDK.Writer">
+      <summary>
+        Output redirect destination for simulator startup, build, etc.
+      </summary>
+      <remarks>Be sure to set this to null before closing the set Writer.</remarks>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.GarminSDK.BuilderJar">
+      <summary>
+        Jar file name to use at build time
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.#ctor">
+      <summary>
+        Default constructor
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.#ctor(AutomationConnectIQ.Lib.IEnvironment)">
+      <summary>
+        constructor
+      </summary>
+      <exception cref="T:System.IO.DirectoryNotFoundException">Connect IQのSDKフォルダがない場合</exception>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartSimUI">
+      <summary>
+        Running the simulator
+      </summary>
+      <remarks>
+        If there is something in the Writer, redirect the output to it.
+      </remarks>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String)">
+      <summary>
+        Run the program in simulation
+      </summary>
+      <param name="progName">program name</param>
+      <param name="device">Device name</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String)">
+      <summary>
+        Program build <br />
+        The program will be created in the default location under the project file <br />
+        Wait until the build is complete.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String,System.String)">
+      <summary>
+        Program build <br />
+        Wait until the build is complete.
+      </summary>
+      <remarks>
+        Returns false if the device name does not exist in the project <br />
+        If there is something in the Writer, redirect the output to it
+      </remarks>
+      <param name="project">Project information</param>
+      <param name="device">Device to build</param>
+      <param name="output">Output executable file name</param>
+      <returns>True if the build completed successfully</returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Jungle">
+      <summary>
+        Analyze Connect IQ project files to enable various processing
+      </summary>
+      <remarks>
+        -Allow the program name and device name used to be retrieved. <br/>
+        -Continuously execute the simulation
+      </remarks>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Jungle.Create(System.String)">
+      <summary>
+        Factory function to create Jungle from project file
+        If the analysis method is different due to different versions, try to absorb them here
+      </summary>
+      <param name="projectFile">Target project name File name (specify monkey.jungle)</param>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Jungle.Devices">
+      <summary>
+        Target device information
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Jungle.EntryName">
+      <summary>
+        Entry name described in the project <br />
+        (The entry of iq: application is output)
+      </summary>
+      <remarks>
+        The real build-time name is in the name of iq: application, which refers to the resource. <br/>
+        I haven't looked at the resources in this class, so I haven't referenced their names.
+      </remarks>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Jungle.JungleFile">
+      <summary>
+        Project file name
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Jungle.#ctor(System.String)">
+      <summary>
+        Project loading <br />
+        Exceptions may return the same as StreamReader
+      </summary>
+      <param name="projectFile">プロジェクトファイル</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Jungle.IsValidDevice(System.String)">
+      <summary>
+        Determine if the specified device name is registered
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Jungle.DefaultProgramPath">
+      <summary>
+        Default program output file name
+      </summary>
+      <remarks>
+        ProgramName under bin in the location of the jungle file with the extension "prg"
+      </remarks>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Jungle.MakeProgramPath(System.String)">
+      <summary>
+        Make a program name <br />
+        Actually I just added the extension
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator">
+      <summary>
+        Simulator operation
+      </summary>
+      <summary>
+        Simulator operation
+      </summary>
+      <summary>
+        Simulator operation
+      </summary>
+      <summary>
+        Simulator operation
+      </summary>
+      <summary>
+        Simulator operation
+      </summary>
+      <summary>
+        Simulator operation
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.top_">
+      <summary>
+        Top elements of the simulator
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.#ctor">
+      <summary>
+        Default constructor
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.#ctor(AutomationConnectIQ.Lib.GarminSDK)">
+      <summary>
+        constructor
+      </summary>
+      <exception cref="T:System.NullReferenceException">When the simulator fails to start</exception>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.Open(AutomationConnectIQ.Lib.GarminSDK)">
+      <summary>
+        Launching the simulator <br />
+        If it's already running, look for it, but if it's not, start it yourself
+      </summary>
+      <param name="sdk"></param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.WaitForInput">
+      <summary>
+        After calling GarminSDK.StartProgram, wait until the program load on the simulator side is completed <br/>
+        Just wait until Ready appears in the status bar.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.Close">
+      <summary>
+        Exit the running simulator
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.KillDevice">
+      <summary>
+        End the simulation of the booting device <br/>
+        The simulator itself does not close <br/>
+        A function to be executed before loading a different program device.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.CreateTime">
+      <summary>
+        Generation of time simulation class
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.Capture">
+      <summary>
+        Graphic screen capture
+      </summary>
+      <returns></returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.GoalType">
+      <summary>
+        Types of goal notifications
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.TriggerGoal(AutomationConnectIQ.Lib.Simulator.GoalType)">
+      <summary>
+        Goal notification
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.Activity">
+      <summary>
+        Data Fields-Timer settings
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetTimerActivity(AutomationConnectIQ.Lib.Simulator.Activity)">
+      <summary>
+        Click the Data Fields-Timer menu.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.IsEnableTimerActivity(AutomationConnectIQ.Lib.Simulator.Activity)">
+      <summary>
+        Data Fields-Timer menu state.
+      </summary>
+      <param name="type"></param>
+      <returns></returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.BackgroundColor">
+      <summary>
+        Data Fields background color
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetBackgroundColor(AutomationConnectIQ.Lib.Simulator.BackgroundColor)">
+      <summary>
+        Data Fields background color settings.
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.Language">
+      <summary>
+        Language setting
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetLanguage(AutomationConnectIQ.Lib.Simulator.Language)">
+      <summary>
+        UI language settings
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.ConnectionType">
+      <summary>
+        BLE / WIFI connection type
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetBleConnection(AutomationConnectIQ.Lib.Simulator.ConnectionType)">
+      <summary>
+        BLE connection type setting
+      </summary>
+      <param name="type"></param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetWiFiConnection(AutomationConnectIQ.Lib.Simulator.ConnectionType)">
+      <summary>
+        WIFI connection type setting
+      </summary>
+      <param name="type"></param>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.WiFiStatus">
+      <summary>
+        WIFI status
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetWiFiStatus(AutomationConnectIQ.Lib.Simulator.WiFiStatus)">
+      <summary>
+        WIFI status settings.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetDisplayHourType(System.Boolean)">
+      <summary>
+        Time notation setting.
+      </summary>
+      <param name="is24Type">If true, it is written in 24 hours, if it is false, it is written in 12 hours.</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetDisplayUnit(System.Boolean)">
+      <summary>
+        Display unit setting.
+      </summary>
+      <param name="isMetric">If true, it is expressed in meters, and if false, it is expressed in miles.</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetFirstDayWeek(System.DayOfWeek)">
+      <summary>
+        Setting the day of the week to be the beginning of the week.
+      </summary>
+      <param name="type">Specify the day of the week only on Saturday, Sunday, and Monday</param>
+      <exception cref="T:System.ArgumentException">If the specified day of the week is out of range</exception>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.ReceiveNotificationType">
+      <summary>
+        Notification type to accept
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetReceiveNotificationType(AutomationConnectIQ.Lib.Simulator.ReceiveNotificationType)">
+      <summary>
+        Set the notification type to receive
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.GPSQualityType">
+      <summary>
+        GPS quality type
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetGPSQuality(AutomationConnectIQ.Lib.Simulator.GPSQualityType)">
+      <summary>
+        Set GPS quality type
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetNotificationCount(System.Int32)">
+      <summary>
+        Set the number of notifications
+      </summary>
+      <param name="num">Number of notifications(0-20)</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">numが0-20以外</exception>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetAlarmCount(System.Int32)">
+      <summary>
+        Set the number of alarms
+      </summary>
+      <param name="num">alarms(0-3)</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">numが0-3以外</exception>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetBatteryStatus(System.Double,System.Boolean)">
+      <summary>
+        Set the charge status and charge rate of the battery
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetBleSettings(System.String)">
+      <summary>
+        Set the BLE connection port
+      </summary>
+      <returns>
+        False if the port cannot be connected. <br/> However, if you enter the same port name consecutively, it will be true the second time, so be careful.
+      </returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetGPSPosition(System.Double,System.Double)">
+      <summary>
+        Set GPS coordinates. <br/>
+        For the coordinate values, you can set the two real values that appear at the bottom of the screen as they are when you click on google map.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetForceOn(System.Boolean)">
+      <summary>
+        Settings-> Force on ???? settings
+      </summary>
+      <param name="toHide">True if onHide is selected, false if onShow is selected</param>
+      <returns>False if not selected</returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.SettingToggleMenu">
+      <summary>
+        Toggle menu to turn on / off
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.ToggleMenu(AutomationConnectIQ.Lib.Simulator.SettingToggleMenu,System.Boolean)">
+      <summary>
+        Set menu toggle ON / OFF
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics">
+      <summary>
+        Watchface Diagnostics Content Information
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Total">
+      <summary>
+        Total time
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Execution">
+      <summary>
+        Execute time
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Graphics">
+      <summary>
+        Graphics time
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Display">
+      <summary>
+        Display time
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.GetTimeDiagnostics(System.Boolean)">
+      <summary>
+        時間計測画面(Watchface Diagnostics)の内容を取得する
+      </summary>
+      <param name="doClose">Set to true to close open Watchface Diagnostics</param>
+      <returns>Watchface Diagnostics settings</returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.Usage`1">
+      <summary>
+        MemoryDiagnosticsで使うための現在の値、最大値、ピーク値を保持する構造体
+      </summary>
+      <typeparam name="T"></typeparam>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Current">
+      <summary>
+        Current
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Max">
+      <summary>
+        Max
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Peak">
+      <summary>
+        Peak
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.MemoryDiagnostics">
+      <summary>
+        Memory usage information
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.MemoryDiagnostics.Memory">
+      <summary>
+        Information about memory
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.Simulator.MemoryDiagnostics.Objects">
+      <summary>
+        Information about the object
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.GetMemoryDiagnostics">
+      <summary>
+        Retrieving memory information <br />
+        Sometimes it fails.
+      </summary>
+      <returns>If it is null, it has failed, so you may be able to get it by retrying.</returns>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Simulator.WindowSetting">
+      <summary>
+        Delegate for processing in the setting screen
+      </summary>
+      <param name="windowMain">Information about the setting screen</param>
+      <returns>Set to true when the setting is completed</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.OpenWindow(System.Collections.Generic.List{System.String},System.String,AutomationConnectIQ.Lib.Simulator.WindowSetting)">
+      <summary>
+        Press Menu to display a modal window. <br/>
+        The processing in the window is delegated to func.
+      </summary>
+      <param name="menuNames">Menu to select</param>
+      <param name="windowName">Settings window name</param>
+      <param name="func">Processing functions in the settings window</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.OpenSettingWindow(System.String,System.String,AutomationConnectIQ.Lib.Simulator.WindowSetting)">
+      <summary>
+        Open window from settings
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.SetSpinValue(System.Windows.Automation.AutomationElement,System.Int32,System.String)">
+      <summary>
+        Setting the value to spin
+      </summary>
+      <param name="settingWindow">Setting screen</param>
+      <param name="value">Set value</param>
+      <param name="spinName">Spin name</param>
+      <returns></returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.WaitForDeviceStart">
+      <summary>
+        Wait for the device to boot up
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.TimeSimulator">
+      <summary>
+        Time simulation window control class
+      </summary>
+      <example>
+        <code>
+          var time = simulator.CreateTime();
+          time.Open();
+          time.Time = new DateTime(2019, 1, 1, 0, 0, 0);
+          time.Action(Lib.TimeSimulator.ExecuteType.Start);
+          Thread.Sleep(500);      // Pause here because it takes some time from the start of the time simulation until the screen is updated.
+          time.Action(Lib.TimeSimulator.ExecuteType.Pause);   // Pause to prevent screen updates
+          time.Close();
+        </code>
+      </example>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.top_">
+      <summary>
+        Top elements of the simulator
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.time_">
+      <summary>
+        Top element of the time setting window
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Open">
+      <summary>
+        Open the time setting window
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Close">
+      <summary>
+        Close the time setting window
+      </summary>
+      <remarks>
+        When the time simulation is started, it is stopped and then closed.
+      </remarks>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.TimeSimulator.Time">
+      <summary>
+        Time setting
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.TimeSimulator.Factor">
+      <summary>
+        Setting the progress rate
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.TimeSimulator.IsOpen">
+      <summary>
+        Whether the time simulation window is open
+      </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.TimeSimulator.IsStarted">
+      <summary>
+        Whether the time simulation is running
+      </summary>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType">
+      <summary>
+        Types of buttons to press
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Start">
+      <summary>
+        Start
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Stop">
+      <summary>
+        Stop
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Pause">
+      <summary>
+        Pause
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Resume">
+      <summary>
+        Resume
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Action(AutomationConnectIQ.Lib.TimeSimulator.ExecuteType)">
+      <summary>
+        Press the button to perform a time simulation.
+      </summary>
+      <remarks>
+        The screen may not be updated until Sleep (500ms) is reached after Start. <br/>
+        Be careful when implementing.
+      </remarks>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.GetDescription(System.Enum)">
+      <summary>
+        Convert enum Description to characters
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.PushButton(System.Windows.Automation.AutomationElement)">
+      <summary>
+        Click button.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.ExpandMenu(System.Windows.Automation.AutomationElement)">
+      <summary>
+        Expand menu
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.ActionMenu(System.Windows.Automation.AutomationElement,System.Collections.Generic.List{System.String})">
+      <summary>
+        Click menu.
+      </summary>
+      <remarks>Returns false if the menu character is strange or the menu is enable</remarks>
+      <param name="top">Top of application</param>
+      <param name="menus">
+        Menu to click <br /> Specify in List considering the hierarchical structure
+      </param>
+      <returns>True if you can click</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.ToggleMenu(System.Windows.Automation.AutomationElement,System.Collections.Generic.List{System.String},System.Boolean)">
+      <summary>
+        Control ON / OFF of toggle type menu
+      </summary>
+      <param name="top">Top of application</param>
+      <param name="menus">
+        Menu to click <br /> Specify in List considering the hierarchical structure
+      </param>
+      <param name="turnOn">Specifying On / Off settings</param>
+      <returns>True if the menu can be selected</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.ActionMenu(System.Windows.Automation.AutomationElement,System.Collections.Generic.List{System.String},AutomationConnectIQ.Lib.Utility.DelegateMenuAction)">
+      <summary>
+        Menu operation
+      </summary>
+      <remarks>Returns false if the menu character is strange or the menu is enable</remarks>
+      <param name="top">Top of application</param>
+      <param name="menus">
+        Menu to click <br /> Specify in List considering the hierarchical structure
+      </param>
+      <param name="func">Processing function for menus that cannot be expanded</param>
+      <returns>True if processed</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.SetText(System.Windows.Automation.AutomationElement,System.String,System.Boolean)">
+      <summary>
+        Set the character string in the specified AutomationElement with the body hit on the keyboard
+      </summary>
+      <remarks>
+        https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
+      </remarks>
+      <param name="element">Element to be processed</param>
+      <param name="text">Information to set</param>
+      <param name="focus">True if you want to move the focus to set</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.SetText(System.Windows.Automation.AutomationElement,System.Double,System.Boolean)">
+      <summary>
+        Set the character string in the specified AutomationElement with the body hit on the keyboard
+      </summary>
+      <remarks>
+        https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
+      </remarks>
+      <param name="element">Element to be processed</param>
+      <param name="text">Information to set</param>
+      <param name="focus">True if you want to move the focus to set</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.SetText(System.Windows.Automation.AutomationElement,System.Int32,System.Boolean)">
+      <summary>
+        Set the character string in the specified AutomationElement with the body hit on the keyboard
+      </summary>
+      <remarks>
+        https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
+      </remarks>
+      <param name="element">Element to be processed</param>
+      <param name="text">Information to set</param>
+      <param name="focus">True if you want to move the focus to set</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.SetSpinText(System.Windows.Automation.AutomationElement,System.String)">
+      <summary>
+        Processing to directly enter a value in the text area registered in the spin <br />
+        Some spins and text areas are not buddy, and in order to correspond to that, the one before the spin is assumed to be text, and the character string is put there.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.SetDate(System.Windows.Automation.AutomationElement,System.DateTime)">
+      <summary>
+        Set the date for the element
+      </summary>
+      <remarks>
+        Refer to the following URL for setting the date
+        <br/>
+        https://stackoverflow.com/questions/5036776/update-datetimepicker-in-another-process-by-dtm-setsystemtime
+        <br/>
+        When doing DTM_SETSYSTEMTIME for another process, it seems that you have to secure a memory area in that process space and send it.
+      </remarks>
+      <param name="element">Element to be processed</param>
+      <param name="date">date</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.FindRootElement(System.Diagnostics.Process)">
+      <summary>
+        Get automation elements for a process
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.FindTitleProcess(System.String,System.Int32)">
+      <summary>
+        Pull the process with the specified title
+      </summary>
+      <remarks>
+        In the case of processes such as UWP, it may not be possible to find the process with the title immediately after starting the application, so I try to put it to sleep and retry.
+      </remarks>
+      <param name="title">Title name</param>
+      <param name="maxRetry">Maximum number of trials</param>
+      <returns>Process information</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.FindElementById(System.Windows.Automation.AutomationElement,System.String)">
+      <summary>
+        Get AutomationElement that matches automationId
+      </summary>
+      <remarks>
+        Since there are cases where parts are not generated immediately after WPF is started, a retry function is provided.
+      </remarks>
+      <param name="root">Search source</param>
+      <param name="id">Part ID</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Utility.FindElementsByName(System.Windows.Automation.AutomationElement,System.String)">
+      <summary>
+        Get AutomationElements that match the specified name with IEnumerable
+      </summary>
+      <remarks>
+        Since there are cases where parts are not generated immediately after WPF is started, a retry function is provided.
+      </remarks>
+      <param name="root">Search source</param>
+      <param name="name">Part name</param>
+    </member>
+    <member name="T:AutomationConnectIQ.Lib.Win32Api">
+      <summary>
+        Management class for Win32 API wrapper
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Win32Api.InjectMemory(System.IntPtr,System.Byte[],System.IntPtr@)">
+      <summary>
+        Allocate an area in the memory space of the other process and write information to it.
+      </summary>
+      <param name="processid">Opponent process</param>
+      <param name="buffer">Copy source information</param>
+      <param name="lpAddress">Pointer of reserved memory area</param>
+      <returns>Process handle</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Win32Api.SendMessage(System.IntPtr,System.IntPtr,System.Int32,System.Int32,AutomationConnectIQ.Lib.Win32Api.SYSTEMTIME)">
+      <summary>
+        SendMessage wrapper for sending SYSTEMTIME
+      </summary>
+      <param name="handle">Window handle</param>
+      <param name="processid">Process handle</param>
+      <param name="lParam">lparam</param>
+      <param name="msg">Message ID</param>
+      <param name="wParam">wparam</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Win32Api.CaptureWindow(System.IntPtr)">
+      <summary>
+        Window capture
+      </summary>
+      <remarks>
+        Image acquisition is performed with Format32bppRgb. <br /> By default, there is a gap between the clock framework and it.
+      </remarks>
+      <param name="handle">Window to capture</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Win32Api.Click(System.Int32,System.Int32)">
+      <summary>
+        Click the specified element
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Win32Api.GetMenuStatus(System.IntPtr,System.Collections.Generic.List{System.String})">
+      <summary>
+        Get the status of the menu
+      </summary>
+      <returns>If true, check is ON</returns>
+    </member>
+  </members>
+</doc>
