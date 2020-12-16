@@ -56,7 +56,7 @@ namespace AutomationConnectIQ.Lib
         private static extern int WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, [In] byte[] lpBuffer, uint nSize, out uint lpNumberOfBytesWritten);
         [DllImport("User32.dll")]
         private extern static bool VirtualFreeEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, int dwFreeType);
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private extern static int GetMenuString(IntPtr hMenu, uint uIDItem, [Out] StringBuilder lpString, int nMaxCount, uint uFlag);
         [DllImport("user32.dll")]
         private extern static int GetMenuItemCount(IntPtr hMenu);
@@ -236,7 +236,7 @@ namespace AutomationConnectIQ.Lib
             foreach(var menu in menus) {
                 for (uint i = 0; i < GetMenuItemCount(hMenu); i++) {
                     StringBuilder menuName = new StringBuilder(128);
-                    GetMenuString(hMenu, i, menuName, menuName.Capacity, MF_BYPOSITION);
+                    _ = GetMenuString(hMenu, i, menuName, menuName.Capacity, MF_BYPOSITION);
 
                     // ニーモニック文字(&)を削る
                     var work = menuName.ToString();
