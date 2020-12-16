@@ -18,7 +18,6 @@ namespace AutomationConnectIQ.Lib
         /// バージョン違いで解析方法が異なる場合に、ここでそれらを吸収するようにする
         /// </summary>
         /// <param name="projectFile">対象とするプロジェクト名ファイル名(monkey.jungleを指定する)</param>
-        /// <param name="sdk">SDKに関する情報</param>
         static public Jungle Create(string projectFile)
         {
             return new Jungle(projectFile);

@@ -16,12 +16,14 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum GoalType
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Steps")]
             Steps,
             [Description("Floors Climbed")]
             FloorClimbed,
             [Description("Active Minutes")]
             ActiveMinutes
+#pragma warning restore
         }
 
         /// <summary>
@@ -34,8 +36,7 @@ namespace AutomationConnectIQ.Lib
                 // 選択するものを選んだ後はSelectionItemPattern.Selectを使う
                 var guiParts = Utility.FindElementsByName(settingWindow, type.GetDescription());
                 if (guiParts.Count() == 1) {
-                    Object obj;
-                    if (guiParts.First().TryGetCurrentPattern(SelectionItemPattern.Pattern, out obj)) {
+                    if (guiParts.First().TryGetCurrentPattern(SelectionItemPattern.Pattern, out object obj)) {
                         ((SelectionItemPattern)obj).Select();
                         return true;
                     }
@@ -49,6 +50,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum Activity
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Discard Activity")]
             Discard,
             [Description("Save Activity")]
@@ -65,6 +67,7 @@ namespace AutomationConnectIQ.Lib
             WorkoutStep,
             [Description("Next Multisport")]
             NextMultisport,
+#pragma warning restore
         }
 
         /// <summary>
@@ -104,10 +107,12 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum BackgroundColor
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("White")]
             White,
             [Description("Black")]
             Black
+#pragma warning restore
         }
 
         /// <summary>

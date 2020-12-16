@@ -17,7 +17,7 @@ namespace AutomationConnectIQ.Lib
         public string AppBase { get; }
     }
 
-    public class IQEnvironment : IEnvironment
+    internal class IQEnvironment : IEnvironment
     {
         public string AppBase { get => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Garmin\ConnectIQ"; }
     }
@@ -172,6 +172,7 @@ namespace AutomationConnectIQ.Lib
         /// デバイス名がプロジェクト内に存在しない場合falseでリターンする<br/>
         /// Writerに何か入っていればそちらに出力をリダイレクトする
         /// </remarks>
+        /// <param name="project">プロジェクト情報</param>
         /// <param name="device">ビルド対象のデバイス</param>
         /// <param name="output">出力実行形式ファイル名</param>
         /// <returns>ビルドが正しく終了した場合true</returns>

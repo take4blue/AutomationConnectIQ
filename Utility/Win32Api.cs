@@ -172,6 +172,9 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         /// <param name="handle">ウィンドウハンドル</param>
         /// <param name="processid">プロセスハンドル</param>
+        /// <param name="lParam">lparam</param>
+        /// <param name="msg">メッセージID</param>
+        /// <param name="wParam">wparam</param>
         public static IntPtr SendMessage(IntPtr handle, IntPtr processid, int msg, int wParam, SYSTEMTIME lParam)
         {
             int structMemLen = Marshal.SizeOf(typeof(SYSTEMTIME));

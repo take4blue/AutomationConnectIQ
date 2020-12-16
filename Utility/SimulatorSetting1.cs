@@ -18,6 +18,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum Language
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             Arabic,
             Bulgarian,
             Czech,
@@ -54,6 +55,7 @@ namespace AutomationConnectIQ.Lib
             Korean,
             Thai,
             Vietnamese,
+#pragma warning restore
         }
 
         /// <summary>
@@ -183,12 +185,14 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum ConnectionType
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Not Initialized")]
             NotInitialized,
             [Description("Not Connected")]
             NotConnected,
             [Description("Connected")]
             Connected,
+#pragma warning restore
         }
 
         /// <summary>
@@ -220,6 +224,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum WiFiStatus
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Avaliable")]
             Avaliable,
             [Description("Low Battery")]
@@ -240,6 +245,7 @@ namespace AutomationConnectIQ.Lib
             PoweredDown,
             [Description("Unknown")]
             Unknown,
+#pragma warning restore
         }
 
         /// <summary>
@@ -320,6 +326,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum ReceiveNotificationType
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Receive All")]
             All,
             [Description("Receive Actionable")]
@@ -328,6 +335,7 @@ namespace AutomationConnectIQ.Lib
             ActionableLTE,
             [Description("Receive None")]
             None
+#pragma warning restore
         }
 
         /// <summary>
@@ -346,6 +354,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum GPSQualityType
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Not Available")]
             NotAvailable,
             [Description("Last Known")]
@@ -356,6 +365,7 @@ namespace AutomationConnectIQ.Lib
             Usable,
             [Description("Good")]
             Good
+#pragma warning restore
         }
 
         /// <summary>
@@ -520,6 +530,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum SettingToggleMenu
         {
+#pragma warning disable CS1591 // 公開されている型またはメンバーの XML コメントがありません
             [Description("Tones")]
             Tones,
             [Description("Vibrate")]
@@ -538,6 +549,7 @@ namespace AutomationConnectIQ.Lib
             AppLockEnabled,
             [Description("Enable Alert")]
             EnableAlert,
+#pragma warning restore
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace AutomationConnectIQ.Lib
         /// メニューを押しモーダルウィンドウを表示する。<br/>
         /// ウィンドウ内の処理はfuncに委譲している。
         /// </summary>
-        /// <param name="menuName">選択するメニュー</param>
+        /// <param name="menuNames">選択するメニュー</param>
         /// <param name="windowName">設定ウィンドウ名</param>
         /// <param name="func">設定ウィンドウ内の処理関数</param>
         private void OpenWindow(List<string> menuNames, string windowName, WindowSetting func)
@@ -67,7 +67,7 @@ namespace AutomationConnectIQ.Lib
         /// <param name="value">設定値</param>
         /// <param name="spinName">スピンの名前</param>
         /// <returns></returns>
-        private bool SetSpinValue(AutomationElement settingWindow, int value, string spinName)
+        private static bool SetSpinValue(AutomationElement settingWindow, int value, string spinName)
         {
             // 入力フィールドのスピンに値を入れる
             var guiParts = settingWindow.FindAll(TreeScope.Subtree,

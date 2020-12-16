@@ -56,6 +56,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         /// <param name="top">アプリケーションのトップ</param>
         /// <param name="menus">クリックするメニュー<br/>階層構造を考慮しListで指定する</param>
+        /// <param name="turnOn">On/Offの設定の指定</param>
         /// <returns>選択できるメニューだったらtrue</returns>
         static public bool ToggleMenu(AutomationElement top, List<string> menus, bool turnOn)
         {
@@ -144,6 +145,8 @@ namespace AutomationConnectIQ.Lib
         /// <remarks>
         /// https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
         /// </remarks>
+        /// <param name="element">処理対象要素</param>
+        /// <param name="text">設定する情報</param>
         /// <param name="focus">設定するためにフォーカスをうつす場合true</param>
         static public void SetText(AutomationElement element, string text, bool focus = true)
         {
@@ -168,6 +171,8 @@ namespace AutomationConnectIQ.Lib
         /// https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
         /// </remarks>
         /// <param name="focus">設定するためにフォーカスをうつす場合true</param>
+        /// <param name="element">処理対象要素</param>
+        /// <param name="value">設定する情報</param>
         static public void SetText(AutomationElement element, double value, bool focus = true)
         {
             if (focus) {
@@ -189,6 +194,8 @@ namespace AutomationConnectIQ.Lib
         /// https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
         /// </remarks>
         /// <param name="focus">設定するためにフォーカスをうつす場合true</param>
+        /// <param name="element">処理対象要素</param>
+        /// <param name="value">設定する情報</param>
         static public void SetText(AutomationElement element, int value, bool focus = true)
         {
             if (focus) {

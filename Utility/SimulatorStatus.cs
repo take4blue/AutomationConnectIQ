@@ -15,9 +15,21 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public struct TimeDiagnostics
         {
+            /// <summary>
+            /// 総合時間
+            /// </summary>
             public int Total;
+            /// <summary>
+            /// 実行時時間
+            /// </summary>
             public int Execution;
+            /// <summary>
+            /// グラフィック時間
+            /// </summary>
             public int Graphics;
+            /// <summary>
+            /// 表示時間
+            /// </summary>
             public int Display;
         }
 
@@ -82,11 +94,21 @@ namespace AutomationConnectIQ.Lib
         /// <typeparam name="T"></typeparam>
         public class Usage<T>
         {
+            /// <summary>
+            /// 現在の値
+            /// </summary>
             public T Current;
+            /// <summary>
+            /// 最大
+            /// </summary>
             public T Max;
+            /// <summary>
+            /// Peak
+            /// </summary>
             public T Peak;
         }
 
+#if false
         /// <summary>
         /// Treeの詳細内容<br/>
         /// 今は出力できない
@@ -99,13 +121,25 @@ namespace AutomationConnectIQ.Lib
             public int Size;
             public string Notes;
         }
+#endif
 
+        /// <summary>
+        /// メモリ使用量情報
+        /// </summary>
         public class MemoryDiagnostics
         {
+            /// <summary>
+            /// メモリに関する情報
+            /// </summary>
             public Usage<double> Memory;
+            /// <summary>
+            /// オブジェクトに関する情報
+            /// </summary>
             public Usage<int> Objects;
 
+#if false
             public List<Status> Status;
+#endif
         }
 
         /// <summary>

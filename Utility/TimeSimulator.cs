@@ -167,12 +167,24 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public enum ExecuteType
         {
+            /// <summary>
+            /// 開始
+            /// </summary>
             [Description("Start")]
             Start,
+            /// <summary>
+            /// 停止
+            /// </summary>
             [Description("Stop")]
             Stop,
+            /// <summary>
+            /// 一時停止
+            /// </summary>
             [Description("Pause")]
             Pause,
+            /// <summary>
+            /// 再開
+            /// </summary>
             [Description("Resume")]
             Resume
         }

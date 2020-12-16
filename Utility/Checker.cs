@@ -75,6 +75,12 @@ namespace AutomationConnectIQ.Lib
         /// <returns>シミュレーションが完了したらtrueを返すようにする</returns>
         public delegate bool Simulation(string device, Simulator sim);
 
+        /// <summary>
+        /// チェック時の前後で行う処理部分のデリゲート処理<br/>
+        /// 主にシミュレーターの事前設定などをやらせるための物
+        /// </summary>
+        public delegate void PrePostAction(Simulator sim);
+
 #region パラメータ類
         /// <summary>
         /// ビルド時のキーファイル
@@ -157,7 +163,8 @@ namespace AutomationConnectIQ.Lib
         /// <summary>
         /// 指定されたデバイスに対して、ビルド＆チェックを実施する
         /// </summary>
-        /// <param name="device"></param>
+        /// <param name="device">処理するデバイス名</param>
+        /// <param name="func">シミュレーションチェック関数</param>
         /// <returns></returns>
         public bool Check(string device, Simulation func)
         {
@@ -260,8 +267,10 @@ namespace AutomationConnectIQ.Lib
         /// 全デバイスに対してチェックを実施する
         /// </summary>
         /// <param name="isBreak">どれか一つのデバイスでエラーが出たらそこで停止する</param>
-        /// <returns></returns>
-        public bool Check(bool isBreak, Simulation func)
+        /// <param name="func">シミュレーションチェック関数</param>
+        /// <param name="pre">デバイスシミュレーションの前処理</param>
+        /// <param name="post">デバイスシミュレーションの後処理</param>
+        public bool Check(bool isBreak, Simulation func, PrePostAction pre, PrePostAction post)
         {
             // キーとプロジェクトが設定されていない場合はエラー、またそれぞれのファイルがない場合はエラー
             if (Key.Length == 0 || Project.Length == 0) {
@@ -282,6 +291,9 @@ namespace AutomationConnectIQ.Lib
                 sdk.Writer = stream;
                 Simulator sim = new Simulator(sdk);
                 sim.Open(sdk);
+                if (pre is not null) {
+                    pre(sim);
+                }
                 foreach (var device in project.Devices) {
                     if (!Check(sdk, project, device, func, sim)) {
                         result = false;
@@ -290,12 +302,18 @@ namespace AutomationConnectIQ.Lib
                         }
                     }
                 }
+                if (post is not null) {
+                    post(sim);
+                }
                 sim.Close();
                 sdk.Writer = null;
             }
             else {
                 Simulator sim = new Simulator(sdk);
                 sim.Open(sdk);
+                if (pre is not null) {
+                    pre(sim);
+                }
                 foreach (var device in project.Devices) {
                     if (!Check(sdk, project, device, func, sim)) {
                         result = false;
@@ -303,6 +321,9 @@ namespace AutomationConnectIQ.Lib
                             break;
                         }
                     }
+                }
+                if (post is not null) {
+                    post(sim);
                 }
                 sim.Close();
             }
