@@ -1,0 +1,830 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AutomationConnectIQ.Utility</name>
+    </assembly>
+    <members>
+        <member name="T:AutomationConnectIQ.Lib.Checker">
+            <summary>
+            ビルドしてチェックを自動で行うユーティリティクラス
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Checker.Simulation">
+            <summary>
+            チェックで使うシミュレーション部分のデリゲート処理
+            </summary>
+            <param name="device">チェック対象としているデバイス名</param>
+            <param name="sim">シミュレーター処理用</param>
+            <returns>シミュレーションが完了したらtrueを返すようにする</returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Checker.PrePostAction">
+            <summary>
+            チェック時の前後で行う処理部分のデリゲート処理<br/>
+            主にシミュレーターの事前設定などをやらせるための物
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Checker.Key">
+            <summary>
+            ビルド時のキーファイル
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Checker.Project">
+            <summary>
+            ビルド時のプロジェクト(monkey.jungle)ファイル
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Checker.LogFile">
+            <summary>
+            出力用のログファイル<br/>
+            Writerがnull以外の場合、そちらが優先される
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Checker.Writer">
+            <summary>
+            出力のログファイルへのストリーム
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation)">
+            <summary>
+            指定されたデバイスに対して、ビルド＆チェックを実施する
+            </summary>
+            <param name="device">処理するデバイス名</param>
+            <param name="func">シミュレーションチェック関数</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.Boolean,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction,AutomationConnectIQ.Lib.Checker.PrePostAction)">
+            <summary>
+            全デバイスに対してチェックを実施する
+            </summary>
+            <param name="isBreak">どれか一つのデバイスでエラーが出たらそこで停止する</param>
+            <param name="func">シミュレーションチェック関数</param>
+            <param name="pre">デバイスシミュレーションの前処理</param>
+            <param name="post">デバイスシミュレーションの後処理</param>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.IEnvironment">
+            <summary>
+            Connect IQ用の環境情報取り出し
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.IEnvironment.AppBase">
+            <summary>
+            Connect IQの格納先情報
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.GarminSDK">
+            <summary>
+            Connect IQ関連のファイルを取り扱うためのクラス
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.GarminSDK.SdkFolder">
+            <summary>
+            現在のSDKのフォルダ名
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.GarminSDK.Version">
+            <summary>
+            現在のSDKのバージョン
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.GarminSDK.Key">
+            <summary>
+            ビルド時のキーファイル
+            </summary>
+            <remarks>未設定の場合ビルドで必ずfalseになる</remarks>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.GarminSDK.Writer">
+            <summary>
+            シミュレーター起動、ビルド等での出力のリダイレクト先
+            </summary>
+            <remarks>設定したWriterを閉じる前には、こちらに必ずnullを設定する</remarks>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.GarminSDK.BuilderJar">
+            <summary>
+            ビルド時に使用するjarファイル名
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.#ctor">
+            <summary>
+            デフォルトコンストラクタ
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.#ctor(AutomationConnectIQ.Lib.IEnvironment)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <exception cref="T:System.IO.DirectoryNotFoundException">Connect IQのSDKフォルダがない場合</exception>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartSimUI">
+            <summary>
+            シミュレーターの実行
+            </summary>
+            <remarks>
+            Writerに何か入っていればそちらに出力をリダイレクトする</remarks>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String)">
+            <summary>
+            シミュレーションでプログラムを実行する
+            </summary>
+            <param name="progName">プログラム名</param>
+            <param name="device">デバイス名</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String)">
+            <summary>
+            プログラムのビルド<br/>
+            プログラムはプロジェクトファイルの下のデフォルトの場所に作成される<br/>
+            ビルドが完了するまでwaitする。
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String,System.String)">
+            <summary>
+            プログラムのビルド<br/>
+            ビルドが完了するまでwaitする。
+            </summary>
+            <remarks>
+            デバイス名がプロジェクト内に存在しない場合falseでリターンする<br/>
+            Writerに何か入っていればそちらに出力をリダイレクトする
+            </remarks>
+            <param name="project">プロジェクト情報</param>
+            <param name="device">ビルド対象のデバイス</param>
+            <param name="progName">出力実行形式ファイル名</param>
+            <returns>ビルドが正しく終了した場合true</returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Jungle">
+            <summary>
+            Connect IQのプロジェクトファイルを解析し、いろいろ処理を行えるようにする
+            </summary>
+            <remarks>
+            ・プログラム名、使用しているデバイス名を取り出せるようにする。<br/>
+            ・シミュレーションを連続実行する
+            </remarks>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Jungle.Create(System.String)">
+            <summary>
+            プロジェクトファイルからJungleを作成するためのファクトリ関数
+            バージョン違いで解析方法が異なる場合に、ここでそれらを吸収するようにする
+            </summary>
+            <param name="projectFile">対象とするプロジェクト名ファイル名(monkey.jungleを指定する)</param>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Jungle.Devices">
+            <summary>
+            ターゲットとするデバイス情報
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Jungle.EntryName">
+            <summary>
+            プロジェクトの中に記載があるエントリー名<br/>
+            (iq:applicationのentryを出力している)
+            </summary>
+            <remarks>
+            本当のビルド時の名前は、iq:applicationのnameに入っているのだが、そちらはリソースを参照している。<br/>
+            このクラス内でリソースまでは見に行ってないので、そちらの名前は参照していない。
+            </remarks>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Jungle.JungleFile">
+            <summary>
+            プロジェクトファイル名
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Jungle.#ctor(System.String)">
+            <summary>
+            プロジェクト読み込み<br/>
+            例外は、StreamReaderと同じものが返ってくる可能性あり
+            </summary>
+            <param name="projectFile">プロジェクトファイル</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Jungle.IsValidDevice(System.String)">
+            <summary>
+            指定デバイス名が登録されているかどうか判断
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Jungle.DefaultProgramPath">
+            <summary>
+            デフォルトのプログラム出力ファイル名
+            </summary>
+            <remarks>
+            jungleファイルの場所のbinの下のProgramNameで拡張子がprgとする
+            </remarks>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Jungle.MakeProgramPath(System.String)">
+            <summary>
+            プログラム名を作る<br/>
+            実際には拡張子を追加しているだけだが
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator">
+            <summary>
+            シミュレーターの操作
+            </summary>
+            <summary>
+            シミュレーターの操作
+            </summary>
+            <summary>
+            シミュレーターの操作
+            </summary>
+            <summary>
+            シミュレーターの操作
+            </summary>
+            <summary>
+            シミュレーターの操作
+            </summary>
+            <summary>
+            シミュレーターの操作
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.top_">
+            <summary>
+            シミュレーターのトップ要素
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.#ctor">
+            <summary>
+            デフォルトコンストラクタ
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.#ctor(AutomationConnectIQ.Lib.GarminSDK)">
+            <summary>
+            コンストラクタ
+            </summary>
+            <exception cref="T:System.NullReferenceException">シミュレーターの起動失敗時</exception>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.Open(AutomationConnectIQ.Lib.GarminSDK)">
+            <summary>
+            シミュレーターの起動<br/>
+            すでに起動していたらそれを探すが、起動していなかった場合は自分で起動する
+            </summary>
+            <param name="sdk"></param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.WaitForInput">
+            <summary>
+            GarminSDK.StartProgramを呼び出したのち、シミュレーター側のプログラムロード完了まで待つ<br/>
+            ステータスバーにReadyが出るまでまつだけ。
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.Close">
+            <summary>
+            起動中のシミュレーターを終了する
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.KillDevice">
+            <summary>
+            起動中デバイスのシミュレーションを終了させる<br/>
+            シミュレーター自体は閉じない<br/>別途違うプログラム・デバイスの読み込みを行わせる前に実行する関数。
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.CreateTime">
+            <summary>
+            時間シミュレーションクラスの生成
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.Capture">
+            <summary>
+            グラフィック画面のキャプチャ
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.GoalType">
+            <summary>
+            ゴール通知の種類
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.TriggerGoal(AutomationConnectIQ.Lib.Simulator.GoalType)">
+            <summary>
+            ゴールの通知
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.Activity">
+            <summary>
+            Data Fields-Timerの設定値
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetTimerActivity(AutomationConnectIQ.Lib.Simulator.Activity)">
+            <summary>
+            Data Fields-Timerのメニュークリック
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.IsEnableTimerActivity(AutomationConnectIQ.Lib.Simulator.Activity)">
+            <summary>
+            Data Fields-Timerのメニューの状態
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.BackgroundColor">
+            <summary>
+            Data Fieldsの背景色
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetBackgroundColor(AutomationConnectIQ.Lib.Simulator.BackgroundColor)">
+            <summary>
+            Data Fieldsの背景色の設定
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.Language">
+            <summary>
+            言語の設定
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetLanguage(AutomationConnectIQ.Lib.Simulator.Language)">
+            <summary>
+            UI言語の設定
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.ConnectionType">
+            <summary>
+            BLE/WIFIの接続タイプ
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetBleConnection(AutomationConnectIQ.Lib.Simulator.ConnectionType)">
+            <summary>
+            BLEの接続タイプの設定
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetWiFiConnection(AutomationConnectIQ.Lib.Simulator.ConnectionType)">
+            <summary>
+            WIFIの接続タイプの設定
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.WiFiStatus">
+            <summary>
+            WIFIステータス
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetWiFiStatus(AutomationConnectIQ.Lib.Simulator.WiFiStatus)">
+            <summary>
+            WIFIステータスの設定
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetDisplayHourType(System.Boolean)">
+            <summary>
+            時間表記の設定
+            </summary>
+            <param name="is24Type">trueの場合24時間表記、falseの場合は12時間表記</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetDisplayUnit(System.Boolean)">
+            <summary>
+            表記単位の設定
+            </summary>
+            <param name="isMetric">trueの場合メートル表記、falseの場合はマイル表記</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetFirstDayWeek(System.DayOfWeek)">
+            <summary>
+            週頭とする曜日の設定
+            </summary>
+            <param name="type">曜日の指定は土曜日、日曜日、月曜日のみ</param>
+            <exception cref="T:System.ArgumentException">指定された曜日が範囲外の場合</exception>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.ReceiveNotificationType">
+            <summary>
+            受け付ける通知種類
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetReceiveNotificationType(AutomationConnectIQ.Lib.Simulator.ReceiveNotificationType)">
+            <summary>
+            受け取る通知種類を設定する
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.GPSQualityType">
+            <summary>
+            GPSの品質種類
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetGPSQuality(AutomationConnectIQ.Lib.Simulator.GPSQualityType)">
+            <summary>
+            GPSの品質種類を設定する
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetNotificationCount(System.Int32)">
+            <summary>
+            通知数を設定する
+            </summary>
+            <param name="num">通知数(0-20)</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">numが0-20以外</exception>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetAlarmCount(System.Int32)">
+            <summary>
+            アラームの数を設定する
+            </summary>
+            <param name="num">アラーム(0-3)</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">numが0-3以外</exception>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetBatteryStatus(System.Double,System.Boolean)">
+            <summary>
+            バッテリーの充電状態、充電率を設定する
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetBleSettings(System.String)">
+            <summary>
+            BLEの接続ポートを設定する
+            </summary>
+            <returns>ポートに接続できない場合false<br/>ただし同じポート名を連続して入力した場合、2回目はtrueになってしまうので注意</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetGPSPosition(System.Double,System.Double)">
+            <summary>
+            GPS座標を設定する。<br/>
+            座標値は、google mapでクリックした時に画面下に出てくる2つの実数値をそのまま設定すればいいようにしてある
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetForceOn(System.Boolean)">
+            <summary>
+            Settings->Force on????の設定
+            </summary>
+            <param name="toHide">onHideを選択する場合true、onShowを選択する場合はfalse</param>
+            <returns>選択できなかった場合false</returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.SettingToggleMenu">
+            <summary>
+            On/Offするトグルメニュー
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.ToggleMenu(AutomationConnectIQ.Lib.Simulator.SettingToggleMenu,System.Boolean)">
+            <summary>
+            メニューのON/OFFを設定する<br/>
+            まだ未完成
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics">
+            <summary>
+            Watchface Diagnosticsの内容情報
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Total">
+            <summary>
+            総合時間
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Execution">
+            <summary>
+            実行時時間
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Graphics">
+            <summary>
+            グラフィック時間
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics.Display">
+            <summary>
+            表示時間
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.GetTimeDiagnostics(System.Boolean)">
+            <summary>
+            時間計測画面(Watchface Diagnostics)の内容を取得する
+            </summary>
+            <param name="doClose">開いたWatchface Diagnosticsを閉じる場合trueにする</param>
+            <returns>Watchface Diagnosticsの設定内容</returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.Usage`1">
+            <summary>
+            MemoryDiagnosticsで使うための現在の値、最大値、ピーク値を保持する構造体
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Current">
+            <summary>
+            現在の値
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Max">
+            <summary>
+            最大
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Peak">
+            <summary>
+            Peak
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.MemoryDiagnostics">
+            <summary>
+            メモリ使用量情報
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.MemoryDiagnostics.Memory">
+            <summary>
+            メモリに関する情報
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.Simulator.MemoryDiagnostics.Objects">
+            <summary>
+            オブジェクトに関する情報
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.GetMemoryDiagnostics">
+            <summary>
+            メモリ情報を取り出す<br/>
+            時々失敗する場合がある。
+            </summary>
+            <returns>nullの場合失敗しているので、リトライすると取得できるかも</returns>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Simulator.WindowSetting">
+            <summary>
+            設定画面内で処理をするためのデリゲート
+            </summary>
+            <param name="windowMain">設定画面に関する情報</param>
+            <returns>設定が完了したらtrueとする</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.OpenWindow(System.Collections.Generic.List{System.String},System.String,AutomationConnectIQ.Lib.Simulator.WindowSetting)">
+            <summary>
+            メニューを押しモーダルウィンドウを表示する。<br/>
+            ウィンドウ内の処理はfuncに委譲している。
+            </summary>
+            <param name="menuNames">選択するメニュー</param>
+            <param name="windowName">設定ウィンドウ名</param>
+            <param name="func">設定ウィンドウ内の処理関数</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.OpenSettingWindow(System.String,System.String,AutomationConnectIQ.Lib.Simulator.WindowSetting)">
+            <summary>
+            設定からのウィンドウを開く
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetSpinValue(System.Windows.Automation.AutomationElement,System.Int32,System.String)">
+            <summary>
+            スピンへの値の設定
+            </summary>
+            <param name="settingWindow">設定画面</param>
+            <param name="value">設定値</param>
+            <param name="spinName">スピンの名前</param>
+            <returns></returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.WaitForDeviceStart">
+            <summary>
+            デバイスが立ち上がるまで待つ
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.TimeSimulator">
+            <summary>
+            時間シミュレーションウィンドウの制御クラス
+            </summary>
+            <example>
+            <code>
+            var time = simulator.CreateTime();
+            time.Open();
+            time.Time = new DateTime(2019, 1, 1, 0, 0, 0);
+            time.Action(Lib.TimeSimulator.ExecuteType.Start);
+            Thread.Sleep(500);      // 時間シミュレーションを開始してから画面の更新がされるまで少し時間がかかるためここで一時停止
+            time.Action(Lib.TimeSimulator.ExecuteType.Pause);   // ポーズをして画面更新がされないようにする
+            time.Close();
+            </code>
+            </example>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.TimeSimulator.top_">
+            <summary>
+            シミュレーターのトップ要素
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.TimeSimulator.time_">
+            <summary>
+            時間設定ウィンドウのトップ要素
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Open">
+            <summary>
+            時間設定ウィンドウを開く
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Close">
+            <summary>
+            時間設定ウィンドウを閉じる
+            </summary>
+            <remarks>
+            時間シミュレーションが開始されている場合、いったんストップしてから閉じるようにしてある。</remarks>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.TimeSimulator.Time">
+            <summary>
+            時間の設定
+            </summary>
+            <remarks>
+            wxWidgetsの日付・時刻設定は、DTM_GETSYSTEMTIMEを送っただけでは、内部情報との差異でStartボタンを押すとアサートが発生する。<br/>
+            そのため、日付・時刻のスピンを動かし、内部情報との差異をなくしておく必要がある。
+            </remarks>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.TimeSimulator.Factor">
+            <summary>
+            進捗倍率の設定
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.TimeSimulator.IsOpen">
+            <summary>
+            時間シミュレーションウィンドウが開いているかどうか
+            </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.TimeSimulator.IsStarted">
+            <summary>
+            時間シミュレーションが実行中かどうか
+            </summary>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType">
+            <summary>
+            押すボタンの種類
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Start">
+            <summary>
+            開始
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Stop">
+            <summary>
+            停止
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Pause">
+            <summary>
+            一時停止
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Resume">
+            <summary>
+            再開
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Action(AutomationConnectIQ.Lib.TimeSimulator.ExecuteType)">
+            <summary>
+            ボタンを押して、時間のシミュレーションを実施する。
+            </summary>
+            <remarks>
+            Start後Sleep(500)位しないと画面が更新されないかもしれない。<br/>
+            実装時に注意すること。
+            </remarks>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.GetDescription(System.Enum)">
+            <summary>
+            enumのDescriptionを文字変換する
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.PushButton(System.Windows.Automation.AutomationElement)">
+            <summary>
+            ボタンクリック
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.ExpandMenu(System.Windows.Automation.AutomationElement)">
+            <summary>
+            メニューの展開
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.ActionMenu(System.Windows.Automation.AutomationElement,System.Collections.Generic.List{System.String})">
+            <summary>
+            メニューのクリック操作
+            </summary>
+            <remarks>メニュー文字がおかしかったり、メニューがenableだった場合falseでリターンする</remarks>
+            <param name="top">アプリケーションのトップ</param>
+            <param name="menus">クリックするメニュー<br/>階層構造を考慮しListで指定する</param>
+            <returns>クリックできたらtrue</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.ToggleMenu(System.Windows.Automation.AutomationElement,System.Collections.Generic.List{System.String},System.Boolean)">
+            <summary>
+            トグル形式のメニューのON/OFFを制御する
+            </summary>
+            <param name="top">アプリケーションのトップ</param>
+            <param name="menus">クリックするメニュー<br/>階層構造を考慮しListで指定する</param>
+            <param name="turnOn">On/Offの設定の指定</param>
+            <returns>選択できるメニューだったらtrue</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.ActionMenu(System.Windows.Automation.AutomationElement,System.Collections.Generic.List{System.String},AutomationConnectIQ.Lib.Utility.DelegateMenuAction)">
+            <summary>
+            メニューの操作
+            </summary>
+            <remarks>メニュー文字がおかしかったり、メニューがenableだった場合falseでリターンする</remarks>
+            <param name="top">アプリケーションのトップ</param>
+            <param name="menus">クリックするメニュー<br/>階層構造を考慮しListで指定する</param>
+            <param name="func">展開できないメニューの場合の処理関数</param>
+            <returns>処理で着たらtrue</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.SetText(System.Windows.Automation.AutomationElement,System.String,System.Boolean)">
+            <summary>
+            指定されたAutomationElementにキーボードを叩いた体で文字列を設定する
+            </summary>
+            <remarks>
+            https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
+            </remarks>
+            <param name="element">処理対象要素</param>
+            <param name="text">設定する情報</param>
+            <param name="focus">設定するためにフォーカスをうつす場合true</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.SetText(System.Windows.Automation.AutomationElement,System.Double,System.Boolean)">
+            <summary>
+            指定されたAutomationElementにキーボードを叩いた体で文字列を設定する
+            </summary>
+            <remarks>
+            https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
+            </remarks>
+            <param name="focus">設定するためにフォーカスをうつす場合true</param>
+            <param name="element">処理対象要素</param>
+            <param name="value">設定する情報</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.SetText(System.Windows.Automation.AutomationElement,System.Int32,System.Boolean)">
+            <summary>
+            指定されたAutomationElementにキーボードを叩いた体で文字列を設定する
+            </summary>
+            <remarks>
+            https://docs.microsoft.com/ja-jp/dotnet/framework/ui-automation/add-content-to-a-text-box-using-ui-automation
+            </remarks>
+            <param name="focus">設定するためにフォーカスをうつす場合true</param>
+            <param name="element">処理対象要素</param>
+            <param name="value">設定する情報</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.SetSpinText(System.Windows.Automation.AutomationElement,System.String)">
+            <summary>
+            スピンに登録されているテキストエリアに直接値を入力するための処理<br/>
+            スピンとテキストエリアがバディになっていないものがあり、それに対応するため、スピンの前のものがテキストとして仮定し、そこに文字列を入れていく。
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.SetDate(System.Windows.Automation.AutomationElement,System.DateTime)">
+            <summary>
+            要素に対して日付を設定する
+            </summary>
+            <remarks>
+            日付の設定に関しては以下のURLを参照
+            <br/>
+            https://stackoverflow.com/questions/5036776/update-datetimepicker-in-another-process-by-dtm-setsystemtime
+            <br/>
+            他のプロセスに対してDTM_SETSYSTEMTIMEを行う場合、そのプロセス空間でのメモリ領域を確保し送信しないといけないようだ
+            </remarks>
+            <param name="target">設定する要素</param>
+            <param name="date">日付</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.FindRootElement(System.Diagnostics.Process)">
+            <summary>
+            プロセスに対してのオートメーション要素を取得する
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.FindTitleProcess(System.String,System.Int32)">
+            <summary>
+            指定したタイトルを持つプロセスを引っ張ってくる
+            </summary>
+            <remarks>
+            UWPなどのプロセスの場合、アプリケーション起動直後ではタイトルを持つプロセスを見つけることができない場合があるので、スリープを入れてリトライするようにしている
+            </remarks>
+            <param name="title">タイトル文字</param>
+            <param name="maxRetry">最大試行回数</param>
+            <returns>プロセス情報</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.FindElementById(System.Windows.Automation.AutomationElement,System.String)">
+            <summary>
+            automationIdに一致するAutomationElementを取得する
+            </summary>
+            <remarks>
+            WPFが起動直後は部品の生成がされていないケースがあるため、リトライする機能が設けられている
+            </remarks>
+            <param name="root">探索元</param>
+            <param name="id">部品のID</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Utility.FindElementsByName(System.Windows.Automation.AutomationElement,System.String)">
+            <summary>
+            指定された名前に一致するAutomationElement達をIEnumerableで取得する
+            </summary>
+            <remarks>
+            WPFが起動直後は部品の生成がされていないケースがあるため、リトライする機能が設けられている
+            </remarks>
+            <param name="root">探索元</param>
+            <param name="name">部品の名前</param>
+        </member>
+        <member name="T:AutomationConnectIQ.Lib.Win32Api">
+            <summary>
+            Win32APIのラッパー用管理クラス
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Win32Api.InjectMemory(System.IntPtr,System.Byte[],System.IntPtr@)">
+            <summary>
+            相手側のプロセスのメモリ空間に領域を確保しそこに情報を書き込む
+            </summary>
+            <param name="processid">相手プロセス</param>
+            <param name="buffer">コピー元の情報</param>
+            <param name="lpAddress">確保したメモリ領域のポインタ</param>
+            <returns>プロセスハンドル</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Win32Api.SendMessage(System.IntPtr,System.IntPtr,System.Int32,System.Int32,AutomationConnectIQ.Lib.Win32Api.SYSTEMTIME)">
+            <summary>
+            SYSTEMTIMEを送信するためのSendMessageのラッパー
+            </summary>
+            <param name="handle">ウィンドウハンドル</param>
+            <param name="processid">プロセスハンドル</param>
+            <param name="lParam">lparam</param>
+            <param name="msg">メッセージID</param>
+            <param name="wParam">wparam</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Win32Api.CaptureWindow(System.IntPtr)">
+            <summary>
+            ウィンドウのキャプチャ
+            </summary>
+            <remarks>
+            画像の取得はFormat32bppRgbで実施。<br/>デフォルトだと時計フレームワークと間に隙間が発生してしまったため。
+            </remarks>
+            <param name="handle">キャプチャ対象のウィンドウ</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Win32Api.Click(System.Int32,System.Int32)">
+            <summary>
+            指定された要素をクリックする
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Win32Api.GetMenuStatus(System.IntPtr,System.Collections.Generic.List{System.String})">
+            <summary>
+            メニューのステータスを取得する
+            </summary>
+            <returns>trueの場合チェックがON状態</returns>
+        </member>
+    </members>
+</doc>
