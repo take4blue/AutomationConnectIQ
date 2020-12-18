@@ -148,7 +148,7 @@
       </remarks>
       <param name="project">Project information</param>
       <param name="device">Device to build</param>
-      <param name="output">Output executable file name</param>
+      <param name="progName">Output executable file name</param>
       <returns>True if the build completed successfully</returns>
     </member>
     <member name="T:AutomationConnectIQ.Lib.Jungle">

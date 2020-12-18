@@ -174,9 +174,9 @@ namespace AutomationConnectIQ.Lib
         /// </remarks>
         /// <param name="project">プロジェクト情報</param>
         /// <param name="device">ビルド対象のデバイス</param>
-        /// <param name="output">出力実行形式ファイル名</param>
+        /// <param name="progName">出力実行形式ファイル名</param>
         /// <returns>ビルドが正しく終了した場合true</returns>
-        public bool BuildProgram(Jungle project, string device, string output)
+        public bool BuildProgram(Jungle project, string device, string progName)
         {
             if (!project.IsValidDevice(device)) {
                 return false;
@@ -196,7 +196,7 @@ namespace AutomationConnectIQ.Lib
                     "-jar",
                     BuilderJar,
                     "-o",
-                    output,
+                    progName,
                     "-w",
                     "-y",
                     key_,
