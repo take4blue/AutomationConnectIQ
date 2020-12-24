@@ -91,7 +91,7 @@ namespace AutomationConnectIQ.Lib
         /// <summary>
         /// MemoryDiagnosticsで使うための現在の値、最大値、ピーク値を保持する構造体
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">値の型、intとかdoubleを想定している</typeparam>
         public class Usage<T>
         {
             /// <summary>
