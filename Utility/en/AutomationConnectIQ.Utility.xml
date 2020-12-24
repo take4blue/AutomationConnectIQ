@@ -113,7 +113,7 @@
       <summary>
         constructor
       </summary>
-      <exception cref="T:System.IO.DirectoryNotFoundException">Connect IQのSDKフォルダがない場合</exception>
+      <exception cref="T:System.IO.DirectoryNotFoundException">Occurs when the Connect IQ SDK folder does not exist.</exception>
     </member>
     <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartSimUI">
       <summary>
@@ -192,7 +192,7 @@
         Project loading <br />
         Exceptions may return the same as StreamReader
       </summary>
-      <param name="projectFile">プロジェクトファイル</param>
+      <param name="projectFile">Project file name</param>
     </member>
     <member name="M:AutomationConnectIQ.Lib.Jungle.IsValidDevice(System.String)">
       <summary>
@@ -475,16 +475,16 @@
     </member>
     <member name="M:AutomationConnectIQ.Lib.Simulator.GetTimeDiagnostics(System.Boolean)">
       <summary>
-        時間計測画面(Watchface Diagnostics)の内容を取得する
+        Get the contents of the time measurement screen (Watchface Diagnostics)
       </summary>
       <param name="doClose">Set to true to close open Watchface Diagnostics</param>
       <returns>Watchface Diagnostics settings</returns>
     </member>
     <member name="T:AutomationConnectIQ.Lib.Simulator.Usage`1">
       <summary>
-        MemoryDiagnosticsで使うための現在の値、最大値、ピーク値を保持する構造体
+        A structure that holds the current, maximum, and peak values for use in Memory Diagnostics
       </summary>
-      <typeparam name="T"></typeparam>
+      <typeparam name="T">Value type. It assumes int or double.</typeparam>
     </member>
     <member name="F:AutomationConnectIQ.Lib.Simulator.Usage`1.Current">
       <summary>
@@ -620,26 +620,6 @@
     <member name="T:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType">
       <summary>
         Types of buttons to press
-      </summary>
-    </member>
-    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Start">
-      <summary>
-        Start
-      </summary>
-    </member>
-    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Stop">
-      <summary>
-        Stop
-      </summary>
-    </member>
-    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Pause">
-      <summary>
-        Pause
-      </summary>
-    </member>
-    <member name="F:AutomationConnectIQ.Lib.TimeSimulator.ExecuteType.Resume">
-      <summary>
-        Resume
       </summary>
     </member>
     <member name="M:AutomationConnectIQ.Lib.TimeSimulator.Action(AutomationConnectIQ.Lib.TimeSimulator.ExecuteType)">
