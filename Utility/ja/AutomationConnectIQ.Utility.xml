@@ -119,7 +119,9 @@
             シミュレーターの実行
             </summary>
             <remarks>
-            Writerに何か入っていればそちらに出力をリダイレクトする</remarks>
+            Writerに何か入っていればそちらに出力をリダイレクトする<br/>
+            シミュレータのメニューなどの操作が可能になる起動完了を待つ場合は、Simulator.WaitForInputを使う。
+            </remarks>
         </member>
         <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String)">
             <summary>
@@ -127,6 +129,9 @@
             </summary>
             <param name="progName">プログラム名</param>
             <param name="device">デバイス名</param>
+            <remarks>
+            シミュレータでウォッチ用プログラムの起動完了を待つ場合は、WaitForDeviceStartを使う。
+            </remarks>
         </member>
         <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String)">
             <summary>

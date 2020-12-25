@@ -107,7 +107,8 @@ namespace AutomationConnectIQ.Lib
         /// シミュレーターの実行
         /// </summary>
         /// <remarks>
-        /// Writerに何か入っていればそちらに出力をリダイレクトする</remarks>
+        /// Writerに何か入っていればそちらに出力をリダイレクトする<br/>
+        /// シミュレータのメニューなどの操作が可能になる起動完了を待つ場合は、Simulator.WaitForInputを使う。</remarks>
         public Process StartSimUI()
         {
             var prc = new Process();
@@ -142,6 +143,9 @@ namespace AutomationConnectIQ.Lib
         /// <summary>
         /// シミュレーションでプログラムを実行する
         /// </summary>
+        /// <remarks>
+        /// シミュレータでウォッチ用プログラムの起動完了を待つ場合は、WaitForDeviceStartを使う。
+        /// </remarks>
         /// <param name="progName">プログラム名</param>
         /// <param name="device">デバイス名</param>
         public void StartProgram(string progName, string device)

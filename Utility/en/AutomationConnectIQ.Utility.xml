@@ -120,7 +120,8 @@
         Running the simulator
       </summary>
       <remarks>
-        If there is something in the Writer, redirect the output to it.
+        If there is something in the Writer, redirect the output to it.<br/>
+        Use Simulator.WaitForInput to wait for the completion of startup to enable operations such as simulator menus.
       </remarks>
     </member>
     <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String)">
@@ -129,6 +130,9 @@
       </summary>
       <param name="progName">program name</param>
       <param name="device">Device name</param>
+      <remarks>
+        Use WaitForDeviceStart to wait for the watch program to finish starting in the simulator.
+      </remarks>
     </member>
     <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String)">
       <summary>
