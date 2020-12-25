@@ -256,7 +256,7 @@
         </member>
         <member name="M:AutomationConnectIQ.Lib.Simulator.WaitForInput">
             <summary>
-            GarminSDK.StartProgramを呼び出したのち、シミュレーター側のプログラムロード完了まで待つ<br/>
+            GarminSDK.StartSimUIを呼び出したのち、シミュレーター側のプログラムロード完了まで待つ<br/>
             ステータスバーにReadyが出るまでまつだけ。
             </summary>
         </member>

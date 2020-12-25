@@ -258,7 +258,7 @@
     </member>
     <member name="M:AutomationConnectIQ.Lib.Simulator.WaitForInput">
       <summary>
-        After calling GarminSDK.StartProgram, wait until the program load on the simulator side is completed <br/>
+        After calling GarminSDK.StartSimUI, wait until the program load on the simulator side is completed <br/>
         Just wait until Ready appears in the status bar.
       </summary>
     </member>

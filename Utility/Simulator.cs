@@ -71,7 +71,7 @@ namespace AutomationConnectIQ.Lib
         }
 
         /// <summary>
-        /// GarminSDK.StartProgramを呼び出したのち、シミュレーター側のプログラムロード完了まで待つ<br/>
+        /// GarminSDK.StartSimUIを呼び出したのち、シミュレーター側のプログラムロード完了まで待つ<br/>
         /// ステータスバーにReadyが出るまでまつだけ。
         /// </summary>
         public void WaitForInput()
