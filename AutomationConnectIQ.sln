@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowerShell", "PowerShell", "{D6EE79A5-678B-40D7-9570-32BB293DB9EC}"
 	ProjectSection(SolutionItems) = preProject
 		Test1\Test1.ps1 = Test1\Test1.ps1
+		Test1\Test2.ps1 = Test1\Test2.ps1
 	EndProjectSection
 EndProject
 Global
