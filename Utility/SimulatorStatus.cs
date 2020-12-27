@@ -131,11 +131,11 @@ namespace AutomationConnectIQ.Lib
             /// <summary>
             /// メモリに関する情報
             /// </summary>
-            public Usage<double> Memory;
+            public Usage<double> Memory = new Usage<double>();
             /// <summary>
             /// オブジェクトに関する情報
             /// </summary>
-            public Usage<int> Objects;
+            public Usage<int> Objects = new Usage<int>();
 
 #if false
             public List<Status> Status;
