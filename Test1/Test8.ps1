@@ -18,6 +18,7 @@ $sdk.BuildProgram($proj, $deviceName)
 # シミュレーターの起動と起動待ち
 $sim = New-Object Simulator($sdk)
 $sim.WaitForInput()
+$sim.KillDevice()
 
 # シミュレーターにプログラムをロードとロード完了待ち
 $sdk.StartProgram($proj.DefaultProgramPath, $deviceName)
