@@ -397,7 +397,7 @@ namespace AutomationConnectIQ.Lib
             if (num < 0 || num > 20) {
                 throw new ArgumentOutOfRangeException(num.ToString());
             }
-            OpenSettingWindow("Set Notification Countt", "Set number of notifications", (settingWindow) =>
+            OpenSettingWindow("Set Notification Count", "Set number of notifications", (settingWindow) =>
             {
                 return SetSpinValue(settingWindow, num, "Number notifications:");
             });

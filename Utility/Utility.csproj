@@ -23,7 +23,8 @@ The utility functions.</Description>
     <PackageProjectUrl>https://take4-blue.com/en/mysoftware-2/automation-connect-iq-sdk/</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>Fixed a null exception in GetMemoryDiagnostics.
-I thought I had fixed it, but it seems that the source was thrown back during the preparatory work before publishing to Nuget.</PackageReleaseNotes>
+I thought I had fixed it, but it seems that the source was thrown back during the preparatory work before publishing to Nuget.
+Fixed that the numerical value could not be set in SetNotificationCount.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
