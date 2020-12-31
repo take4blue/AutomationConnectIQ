@@ -19,6 +19,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowerShell", "PowerShell", "{D6EE79A5-678B-40D7-9570-32BB293DB9EC}"
 	ProjectSection(SolutionItems) = preProject
 		Test1\Test1.ps1 = Test1\Test1.ps1
+		Test1\Test10.ps1 = Test1\Test10.ps1
+		Test1\Test11.ps1 = Test1\Test11.ps1
 		Test1\Test2.ps1 = Test1\Test2.ps1
 		Test1\Test3.ps1 = Test1\Test3.ps1
 		Test1\Test4.ps1 = Test1\Test4.ps1
@@ -26,7 +28,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowerShell", "PowerShell", 
 		Test1\Test6.ps1 = Test1\Test6.ps1
 		Test1\Test7.ps1 = Test1\Test7.ps1
 		Test1\Test8.ps1 = Test1\Test8.ps1
+		Test1\Test9.ps1 = Test1\Test9.ps1
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45F95A41-201E-48B4-AA59-46BC4FD2E262}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

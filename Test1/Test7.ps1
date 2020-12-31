@@ -6,10 +6,10 @@ $sdk = New-Object GarminSDK -Property @{
 	Key = "H:\Develop\Garmin\key\developer_key"
 }
 # プロジェクトファイルの読み込み
-$proj = New-Object Jungle("H:\Develop\eclipse-workspace\DigiFuse\monkey.jungle")
+$proj = New-Object Jungle("H:\Develop\eclipse-workspace\Analog\monkey.jungle")
 
-#$deviceName = "fr45"
-$deviceName = "vivoactive4"
+$deviceName = "fr45"
+#$deviceName = "vivoactive4"
 
 # プロジェクトのビルド
 # 実行形式はプロジェクトの下のbinの下に配置。
@@ -31,3 +31,10 @@ $sim.SetAlarmCount(3)
 
 # バッテリー情報の設定
 $sim.SetBatteryStatus(20, $false)
+
+# 各種ゴールの通知
+$sim.TriggerGoal([Simulator+GoalType]::Steps)
+Start-sleep -Seconds 11
+$sim.TriggerGoal([Simulator+GoalType]::FloorClimbed)
+Start-sleep -Seconds 11
+$sim.TriggerGoal([Simulator+GoalType]::ActiveMinutes)

@@ -155,8 +155,9 @@ namespace AutomationConnectIQ.Cmd
                 Project = @"H:\Develop\eclipse-workspace\DigiFuse\monkey.jungle",
                 LogFile = @"Output\hoge.txt"
             };
+            var i = 0;
 
-            var result = check.Check("fr45", (device, simulator) =>
+            var result = check.Check(true, (device, simulator) =>
             {
                 simulator.SetGPSPosition(35.685233, 139.752485);    // 皇居
 
@@ -185,8 +186,12 @@ namespace AutomationConnectIQ.Cmd
                     time.Action(Lib.TimeSimulator.ExecuteType.Stop);
                 }
                 time.Close();   // 時間画面を閉じる
+                i++;
+                if (i == 2) {
+                    return false;
+                }
                 return true;
-            });
+            }, null, null);
 
             Console.WriteLine(result);
             Process.Start("notepad", check.LogFile);

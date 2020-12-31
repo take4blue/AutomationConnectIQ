@@ -22,25 +22,3 @@ $sim.WaitForInput()
 # シミュレーターにプログラムをロードとロード完了待ち
 $sdk.StartProgram($proj.DefaultProgramPath, $deviceName)
 $sim.WaitForDeviceStart()
-
-$outputDir = "O:\Users\usr2\Downloads\output"
-
-# Diagnostics系の結果をもらう
-$sim.ToggleMenu([Simulator+SettingToggleMenu]::LowPowerMode, $true)
-Start-sleep -Milliseconds 500 # 画面更新のための時間稼ぎ
-$val = $sim.GetTimeDiagnostics()
-$val.Total
-$val.Execution
-$val.Graphics
-$val.Display
-
-$val = $sim.GetMemoryDiagnostics()
-$val.Memory.Current
-$val.Memory.Max
-$val.Memory.Peak
-$val.Objects.Current
-$val.Objects.Max
-$val.Objects.Peak
-
-# シミュレーターを終了させる
-$sim.Close()
