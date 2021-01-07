@@ -156,10 +156,13 @@ namespace AutomationConnectIQ.Lib
 
             if (Utility.ActionMenu(top_, menu)) {
                 // メニュー選択後、品質画面の中から選択するものを探し出し、それをクリック後、OKボタンを押す
-                var settingWindow = AutomationElement.RootElement.FindAll(TreeScope.Subtree,
-                        new AndCondition(
-                            new PropertyCondition(AutomationElement.NameProperty, "Active Memory"),
-                            new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Window))).Cast<AutomationElement>();
+                IEnumerable<AutomationElement> settingWindow = null;
+                for (int i = 0; i < 10 && (settingWindow is null || !settingWindow.Any()); i++) {
+                    settingWindow = AutomationElement.RootElement.FindAll(TreeScope.Subtree,
+                            new AndCondition(
+                                new PropertyCondition(AutomationElement.NameProperty, "Active Memory"),
+                                new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Window))).Cast<AutomationElement>();
+                }
                 if (settingWindow.Count() == 1) {
                     var window = settingWindow.First();
                     result = new MemoryDiagnostics();

@@ -30,6 +30,76 @@ namespace AutomationConnectIQ.Cmd
                 simulator.KillDevice();
                 Console.ReadLine();
                 break;
+            case 6:
+                ActivityMonitorTest(simulator);
+                Console.ReadLine();
+                break;
+            case 7:
+                IsEnabledHeatMap(simulator);
+                Console.ReadLine();
+                break;
+            }
+        }
+
+        static void IsEnabledHeatMap(Lib.Simulator simulator)
+        {
+            Console.WriteLine(simulator.IsEnabledHeatMap);
+        }
+
+        /// <summary>
+        /// ActivityMonitorの設定テスト
+        /// </summary>
+        /// <param name="simulator"></param>
+        static void ActivityMonitorTest(Lib.Simulator simulator)
+        {
+            var monitor = simulator.CreateActivityMonitor();
+            monitor.Open();
+            monitor.SetActiveMinutesGoal(123);
+
+            monitor.SetValue(true, 0, 0, 300);
+            monitor.SetValue(true, 0, 1, 5050);
+            monitor.SetValue(true, 0, 5, 5);
+            monitor.SetValue(true, 0, 6, 6);
+            monitor.SetValue(true, 0, 7, 7);
+            monitor.SetValue(true, 0, 8, 8);
+            monitor.SetValue(true, 0, 9, 9);
+            for (uint row = 0; row < 7; row++) {
+                for (uint column = 0; column < 9; column++) {
+                    monitor.SetValue(false, row, column, row * 10 + column);
+                }
+            }
+            monitor.Cancel();
+            Console.ReadLine();
+
+            monitor.Open();
+            monitor.SetValue(true, 0, 0, 300);
+            monitor.SetValue(true, 0, 1, 5050);
+            monitor.SetValue(true, 0, 5, 5);
+            monitor.SetValue(true, 0, 6, 6);
+            monitor.SetValue(true, 0, 7, 7);
+            monitor.SetValue(true, 0, 8, 8);
+            monitor.SetValue(true, 0, 9, 9);
+            for (uint row = 0; row < 7; row++) {
+                for (uint column = 0; column < 9; column++) {
+                    monitor.SetValue(false, row, column, row * 10 + column);
+                }
+            }
+            monitor.SetActiveMinutesGoal(123);
+            monitor.Ok();
+
+            simulator.FastForward(1);
+            simulator.FastForward(600);
+            try {
+                simulator.FastForward(0);
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                Console.WriteLine(ex.Message);
+            }
+            try {
+                simulator.FastForward(601);
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -127,10 +197,7 @@ namespace AutomationConnectIQ.Cmd
         static void SimulatorMemoryDiagnosticsTest(Lib.Simulator simulator)
         {
             // メモリ情報を取得する
-            Lib.Simulator.MemoryDiagnostics result = null;
-            for (int i = 0; i < 5 && result == null; i++) {
-                result = simulator.GetMemoryDiagnostics();
-            }
+            Lib.Simulator.MemoryDiagnostics result = simulator.GetMemoryDiagnostics();
 
             if (result is not null) {
                 Console.WriteLine("{0} {1} {2} {3} {4} {5}", result.Memory.Current, result.Memory.Max, result.Memory.Peak, result.Objects.Current, result.Objects.Max, result.Objects.Peak);
@@ -199,6 +266,32 @@ namespace AutomationConnectIQ.Cmd
         }
 
         /// <summary>
+        /// Evilテスト
+        /// </summary>
+        static void UnitTestTest()
+        {
+            AllocConsole();
+
+            if (!Directory.Exists("Output")) {
+                Directory.CreateDirectory("Output");
+            }
+            // Checkのチェック
+            var check = new Lib.Checker()
+            {
+                Key = @"H:\Develop\Garmin\key\developer_key",
+                Project = @"H:\Develop\eclipse-workspace\DigiFuse\monkey.jungle",
+                LogFile = @"Output\hoge.txt"
+            };
+
+            var result = check.UnitTest("fr45");
+
+            Console.WriteLine(result);
+            Process.Start("notepad", check.LogFile);
+            Console.ReadLine();
+
+        }
+
+        /// <summary>
         /// SDK関連のテスト
         /// </summary>
         static void SDKTest()
@@ -260,6 +353,9 @@ namespace AutomationConnectIQ.Cmd
                         if (args.Length > 1) {
                             BuildAndSimulator(args[1]);
                         }
+                        break;
+                    case 104:
+                        UnitTestTest();
                         break;
                     }
                 }

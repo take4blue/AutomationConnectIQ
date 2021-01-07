@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Collections.Generic;
 
 // マクロ UsePSFILE はPowerShellスクリプトファイルをシミュレーター動作で使用するためのマクロ
 
@@ -65,6 +66,18 @@ namespace AutomationConnectIQ.Lib
             var result = func(device, simulator);
             simulator.KillDevice();
             return result;
+        }
+
+        private static bool UnitTest(GarminSDK sdk, Jungle project, string device, Simulator simulator)
+        {
+            var programName = Jungle.MakeProgramPath(project.EntryName);
+            if (!sdk.BuildProgram(project, device, programName, true)) {
+                return false;
+            }
+            simulator.KillDevice();
+            sdk.StartProgram(programName, device, true);
+            simulator.WaitForDeviceStart();
+            return true;
         }
 
         /// <summary>
@@ -165,8 +178,8 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         /// <param name="device">処理するデバイス名</param>
         /// <param name="func">シミュレーションチェック関数</param>
-        /// <returns></returns>
-        public bool Check(string device, Simulation func)
+        /// <param name="pre">デバイスシミュレーションの前処理</param>
+        public bool Check(string device, Simulation func, PrePostAction pre = null)
         {
             // キーとプロジェクトが設定されていない場合はエラー、またそれぞれのファイルがない場合はエラー
             if (Key.Length == 0 || Project.Length == 0) {
@@ -191,6 +204,9 @@ namespace AutomationConnectIQ.Lib
                 sdk.Writer = stream;
                 Simulator sim = new Simulator(sdk);
                 sim.Open(sdk);
+                if (pre is not null) {
+                    pre(sim);
+                }
                 result = Check(sdk, project, device, func, sim);
                 sim.Close();
                 sdk.Writer = null;
@@ -198,6 +214,9 @@ namespace AutomationConnectIQ.Lib
             else {
                 Simulator sim = new Simulator(sdk);
                 sim.Open(sdk);
+                if (pre is not null) {
+                    pre(sim);
+                }
                 result = Check(sdk, project, device, func, sim);
                 sim.Close();
             }
@@ -328,6 +347,56 @@ namespace AutomationConnectIQ.Lib
                 sim.Close();
             }
             return result;
+        }
+
+        /// <summary>
+        /// UnitTestの実施
+        /// </summary>
+        /// <param name="device">処理するデバイス名</param>
+        public bool UnitTest(string device)
+        {
+            if (Key.Length == 0 || Project.Length == 0) {
+                return false;
+            }
+            if (!File.Exists(Key) || !File.Exists(Project)) {
+                return false;
+            }
+            var sdk = new GarminSDK() { Key = Key };
+            if (Writer is not null) {
+                sdk.Writer = Writer;
+            }
+            // デバイスがプロジェクト内になければエラー
+            var project = new Jungle(Project);
+            if (!project.IsValidDevice(device)) {
+                return false;
+            }
+            var result = false;
+            if (Writer is null && LogFile.Length > 0) {
+                using var stream = new StreamWriter(LogFile);
+                sdk.Writer = stream;
+                Simulator sim = new Simulator(sdk);
+                sim.Open(sdk);
+                result = UnitTest(sdk, project, device, sim);
+                sim.Close();
+                sdk.Writer = null;
+            }
+            else {
+                Simulator sim = new Simulator(sdk);
+                sim.Open(sdk);
+                result = UnitTest(sdk, project, device, sim);
+                sim.Close();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// ターゲットとするデバイス情報
+        /// </summary>
+        public List<string> Devices {
+            get {
+                var project = new Jungle(Project);
+                return project.Devices;
+            }
         }
     }
 }

@@ -4,6 +4,58 @@
     <name>AutomationConnectIQ.Utility</name>
   </assembly>
   <members>
+    <member name="F:AutomationConnectIQ.Lib.ActivityMonitor.top_">
+      <summary>
+        Top elements of the simulator
+      </summary>
+    </member>
+    <member name="F:AutomationConnectIQ.Lib.ActivityMonitor.monitor_">
+      <summary>
+        Top element of Activity Monitor window
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Open">
+      <summary>
+        Open Activity Monitor window <br/>
+        If it's already open, I'll use it. <br/>
+        To close the window, call either Ok / Cancel method
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Ok">
+      <summary>
+        Set the value and close the Activity Monitor window
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Cancel">
+      <summary>
+        Close Activity Monitor window without setting a value
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.SetValue(System.Boolean,System.UInt32,System.UInt32,System.UInt32)">
+      <summary>
+        Setting values on the grid
+      </summary>
+      <remarks>
+        If you want to set "Today-Steps" to the specified value, after setting "($ true, 0,0,1)", it is better to call "Simulator.FastForward" repeatedly until the specified number of steps is reached. <br/>
+        If you specify the maximum value as "($ true, 0,0,300)", the number of steps will increase in seconds after Ok, so it is difficult to set "Today-Steps" to the specified value.
+      </remarks>
+      <param name="top">True if you want to set the upper (today) grid</param>
+      <param name="row">
+        row number <br/>
+        If top is true 0-1 However, even if 1 is specified, the value is not set, if false 0-6
+      </param>
+      <param name="column">
+        Column number <br/> 0-9
+      </param>
+      <param name="value">
+        Value to be set <br/> Range check is not performed
+      </param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.SetActiveMinutesGoal(System.UInt32)">
+      <summary>
+        Active Minutes Goal settings
+      </summary>
+    </member>
     <member name="T:AutomationConnectIQ.Lib.Checker">
       <summary>
         Utility class that builds and checks automatically
@@ -45,12 +97,13 @@
         Stream to output log file
       </summary>
     </member>
-    <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation)">
+    <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction)">
       <summary>
         Perform build &amp; check for the specified device
       </summary>
       <param name="device">Device name to be checked</param>
       <param name="sim">For simulator processing</param>
+      <param name="pre">Device simulation pre-processing</param>
       <returns>Return true when simulation is complete</returns>
     </member>
     <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.Boolean,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction,AutomationConnectIQ.Lib.Checker.PrePostAction)">
@@ -61,6 +114,17 @@
       <param name="func">For simulator processing</param>
       <param name="pre">Device simulation pre-processing</param>
       <param name="post">Device simulation post-processing</param>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Checker.UnitTest(System.String)">
+      <summary>
+        Implementation of Unit Test
+      </summary>
+      <param name="device">Device name to process</param>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Checker.Devices">
+      <summary>
+        Target device information
+      </summary>
     </member>
     <member name="T:AutomationConnectIQ.Lib.IEnvironment">
       <summary>
@@ -124,17 +188,21 @@
         Use Simulator.WaitForInput to wait for the completion of startup to enable operations such as simulator menus.
       </remarks>
     </member>
-    <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String)">
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String,System.Boolean)">
       <summary>
         Run the program in simulation
       </summary>
       <param name="progName">program name</param>
       <param name="device">Device name</param>
+      <param name="isUnitTest">
+        Set to true when executing Evil UnitTest program <br/>
+        Operates with false if no argument is specified
+      </param>
       <remarks>
         Use WaitForDeviceStart to wait for the watch program to finish starting in the simulator.
       </remarks>
     </member>
-    <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String)">
+    <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String,System.Boolean)">
       <summary>
         Program build <br />
         The program will be created in the default location under the project file <br />
@@ -153,6 +221,10 @@
       <param name="project">Project information</param>
       <param name="device">Device to build</param>
       <param name="progName">Output executable file name</param>
+      <param name="isUnitTestBuild">
+        Set to true for Evil UnitTest build <br/>
+        Works with false if no arguments are specified
+      </param>
       <returns>True if the build completed successfully</returns>
     </member>
     <member name="T:AutomationConnectIQ.Lib.Jungle">
@@ -282,6 +354,12 @@
       <summary>
         Generation of time simulation class
       </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.CreateActivityMonitor">
+      <summary>
+        Generate Activity Monitor class
+      </summary>
+      <returns></returns>
     </member>
     <member name="M:AutomationConnectIQ.Lib.Simulator.Capture">
       <summary>
@@ -451,6 +529,19 @@
       <summary>
         Set menu toggle ON / OFF
       </summary>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.Simulator.IsEnabledHeatMap">
+      <summary>
+        Returns whether the View Screen Heat Map is selectable <br/>
+        If true, note that Heat Map will be displayed when Low Power Mode is set to True.
+      </summary>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Simulator.FastForward(System.UInt32)">
+      <summary>
+        Advance time with Activity Monitor settings
+      </summary>
+      <param name="miniuete"> Time to advance (minutes: 1-600)</param>
+      <exception cref="T:System.ArgumentOutOfRangeException">miniuete is other than 1-600</exception>
     </member>
     <member name="T:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics">
       <summary>

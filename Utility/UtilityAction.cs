@@ -220,6 +220,7 @@ namespace AutomationConnectIQ.Lib
             var prevHandle = Win32Api.GetWindow((IntPtr)handle, Win32Api.GW_HWNDPREV);
             Win32Api.SetFocus(prevHandle);
             Thread.Sleep(200);
+            SendKeys.SendWait("^a");
             SendKeys.SendWait(value);
             Thread.Sleep(200);
         }

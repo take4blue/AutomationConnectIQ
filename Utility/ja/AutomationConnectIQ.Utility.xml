@@ -4,6 +4,51 @@
         <name>AutomationConnectIQ.Utility</name>
     </assembly>
     <members>
+        <member name="F:AutomationConnectIQ.Lib.ActivityMonitor.top_">
+            <summary>
+            シミュレーターのトップ要素
+            </summary>
+        </member>
+        <member name="F:AutomationConnectIQ.Lib.ActivityMonitor.monitor_">
+            <summary>
+            Activity Monitorウィンドウのトップ要素
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Open">
+            <summary>
+            Activity Monitorウィンドウを開く<br/>
+            すでに開いている場合それを流用するようにしている<br/>
+            ウィンドウを閉じる場合は、Ok/Cancelのどちらかのメソッドを呼ぶ
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Ok">
+            <summary>
+            値を設定し、Activity Monitorウィンドウを閉じる
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Cancel">
+            <summary>
+            値を設定せず、Activity Monitorウィンドウを閉じる
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.SetValue(System.Boolean,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            グリッドへの値の設定
+            </summary>
+            <remarks>
+            Today-Stepsを指定した値にしたい場合、($true,0,0,1)の設定をした後、Simulator.FastForwardを指定歩数になるまで繰り返し呼び出すのがいい<br/>
+            ($true,0,0,300)と最大値を指定した場合、Okの後秒単位にステップ数が増えていくため、Today-Stepsを指定した値にするのは困難</remarks>
+            <param name="top">上側(今日)のグリッドを設定する場合true</param>
+            <param name="row">行位置<br/>
+            topがtrueの場合0-1ただし1を指定しても値は設定されない、falseの場合0-6</param>
+            <param name="column">列位置<br/>0-9</param>
+            <param name="value">設定する値<br/>範囲チェックはやっていない</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.SetActiveMinutesGoal(System.UInt32)">
+            <summary>
+            ActiveMinutesGoalの設定
+            </summary>
+        </member>
         <member name="T:AutomationConnectIQ.Lib.Checker">
             <summary>
             ビルドしてチェックを自動で行うユーティリティクラス
@@ -44,13 +89,13 @@
             出力のログファイルへのストリーム
             </summary>
         </member>
-        <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation)">
+        <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction)">
             <summary>
             指定されたデバイスに対して、ビルド＆チェックを実施する
             </summary>
             <param name="device">処理するデバイス名</param>
             <param name="func">シミュレーションチェック関数</param>
-            <returns></returns>
+            <param name="pre">デバイスシミュレーションの前処理</param>
         </member>
         <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.Boolean,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction,AutomationConnectIQ.Lib.Checker.PrePostAction)">
             <summary>
@@ -60,6 +105,17 @@
             <param name="func">シミュレーションチェック関数</param>
             <param name="pre">デバイスシミュレーションの前処理</param>
             <param name="post">デバイスシミュレーションの後処理</param>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Checker.UnitTest(System.String)">
+            <summary>
+            UnitTestの実施
+            </summary>
+            <param name="device">処理するデバイス名</param>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Checker.Devices">
+            <summary>
+            ターゲットとするデバイス情報
+            </summary>
         </member>
         <member name="T:AutomationConnectIQ.Lib.IEnvironment">
             <summary>
@@ -120,18 +176,18 @@
             </summary>
             <remarks>
             Writerに何か入っていればそちらに出力をリダイレクトする<br/>
-            シミュレータのメニューなどの操作が可能になる起動完了を待つ場合は、Simulator.WaitForInputを使う。
-            </remarks>
+            シミュレータのメニューなどの操作が可能になる起動完了を待つ場合は、Simulator.WaitForInputを使う。</remarks>
         </member>
-        <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String)">
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.StartProgram(System.String,System.String,System.Boolean)">
             <summary>
             シミュレーションでプログラムを実行する
             </summary>
-            <param name="progName">プログラム名</param>
-            <param name="device">デバイス名</param>
             <remarks>
             シミュレータでウォッチ用プログラムの起動完了を待つ場合は、WaitForDeviceStartを使う。
             </remarks>
+            <param name="progName">プログラム名</param>
+            <param name="device">デバイス名</param>
+            <param name="isUnitTest">EvilのUnitTest用プログラムの実行をする場合trueにする<br/>引数が指定されていない場合はfalseで動作する</param>
         </member>
         <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String)">
             <summary>
@@ -140,7 +196,7 @@
             ビルドが完了するまでwaitする。
             </summary>
         </member>
-        <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String,System.String)">
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.BuildProgram(AutomationConnectIQ.Lib.Jungle,System.String,System.String,System.Boolean)">
             <summary>
             プログラムのビルド<br/>
             ビルドが完了するまでwaitする。
@@ -152,6 +208,7 @@
             <param name="project">プロジェクト情報</param>
             <param name="device">ビルド対象のデバイス</param>
             <param name="progName">出力実行形式ファイル名</param>
+            <param name="isUnitTestBuild">EvilのUnitTest用ビルドの場合trueにする<br/>引数が指定されていない場合はfalseで動作する</param>
             <returns>ビルドが正しく終了した場合true</returns>
         </member>
         <member name="T:AutomationConnectIQ.Lib.Jungle">
@@ -280,6 +337,12 @@
             <summary>
             時間シミュレーションクラスの生成
             </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.CreateActivityMonitor">
+            <summary>
+            Activity Monitorクラスの生成
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:AutomationConnectIQ.Lib.Simulator.Capture">
             <summary>
@@ -445,9 +508,21 @@
         </member>
         <member name="M:AutomationConnectIQ.Lib.Simulator.ToggleMenu(AutomationConnectIQ.Lib.Simulator.SettingToggleMenu,System.Boolean)">
             <summary>
-            メニューのON/OFFを設定する<br/>
-            まだ未完成
+            メニューのON/OFFを設定する
             </summary>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.Simulator.IsEnabledHeatMap">
+            <summary>
+            View Screen Heat Mapが選択可能かどうかを返す<br/>
+            trueの場合Low Power ModeをTrueにするとHeat Mapが表示されてしまうので注意が必要
+            </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.FastForward(System.UInt32)">
+            <summary>
+            Activity Monitorの設定で時間を進める
+            </summary>
+            <param name="miniuete">進める時間(分:1～600)</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">miniueteが1-600以外</exception>
         </member>
         <member name="T:AutomationConnectIQ.Lib.Simulator.TimeDiagnostics">
             <summary>

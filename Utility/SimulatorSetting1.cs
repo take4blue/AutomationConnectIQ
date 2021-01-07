@@ -553,8 +553,7 @@ namespace AutomationConnectIQ.Lib
         }
 
         /// <summary>
-        /// メニューのON/OFFを設定する<br/>
-        /// まだ未完成
+        /// メニューのON/OFFを設定する
         /// </summary>
         public void ToggleMenu(SettingToggleMenu type, bool turnOn)
         {

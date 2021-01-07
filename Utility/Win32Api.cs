@@ -85,6 +85,8 @@ namespace AutomationConnectIQ.Lib
         public const int MEM_RELEASE = 0x00008000;
 
         public const uint MF_CHECKED = 0x00000008;
+        public const uint MF_DISABLED = 0x00000002;
+        public const uint MF_GRAYED = 0x00000001;
 
         public const uint MF_BYPOSITION = 0x00000400;
 
@@ -251,6 +253,44 @@ namespace AutomationConnectIQ.Lib
                     if (menu == work) {
                         result = (GetMenuState(hMenu, i, MF_BYPOSITION) & MF_CHECKED) != 0;
                         hMenu = GetSubMenu(hMenu, (int)i);
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// メニューが操作可能か確認する
+        /// </summary>
+        /// <returns>trueの場合チェックがON状態</returns>
+        static public bool IsEnabledMenu(IntPtr topWindow, List<string> menus)
+        {
+            bool result = false;
+            var hMenu = GetMenu(topWindow);
+            foreach (var menu in menus) {
+                for (uint i = 0; i < GetMenuItemCount(hMenu); i++) {
+                    StringBuilder menuName = new StringBuilder(128);
+                    _ = GetMenuString(hMenu, i, menuName, menuName.Capacity, MF_BYPOSITION);
+
+                    // ニーモニック文字(&)を削る
+                    var work = menuName.ToString();
+                    var pos = work.IndexOf('&');
+                    if (pos >= 0) {
+                        work = work.Remove(pos, 1);
+                    }
+                    var split = work.Split('\t');
+                    if (split.Any()) {
+                        work = split[0];
+                    }
+
+                    if (menu == work) {
+                        result = (GetMenuState(hMenu, i, MF_BYPOSITION) & (MF_DISABLED | MF_GRAYED)) == 0;
+                        if (!result) {
+                            return result;
+                        }
+                        hMenu = GetSubMenu(hMenu, (int)i);
+                        break;
                     }
                 }
             }

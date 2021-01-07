@@ -2,7 +2,7 @@
   "profiles": {
     "AutomationConnectIQConsole": {
       "commandName": "Project",
-      "commandLineArgs": "3"
+      "commandLineArgs": "7"
     }
   }
 }

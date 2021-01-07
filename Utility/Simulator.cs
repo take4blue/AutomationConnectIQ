@@ -105,6 +105,15 @@ namespace AutomationConnectIQ.Lib
         }
 
         /// <summary>
+        /// Activity Monitorクラスの生成
+        /// </summary>
+        /// <returns></returns>
+        public ActivityMonitor CreateActivityMonitor()
+        {
+            return new ActivityMonitor(top_);
+        }
+
+        /// <summary>
         /// グラフィック画面のキャプチャ
         /// </summary>
         /// <returns></returns>

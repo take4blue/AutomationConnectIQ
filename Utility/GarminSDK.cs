@@ -148,14 +148,37 @@ namespace AutomationConnectIQ.Lib
         /// </remarks>
         /// <param name="progName">プログラム名</param>
         /// <param name="device">デバイス名</param>
-        public void StartProgram(string progName, string device)
+        /// <param name="isUnitTest">EvilのUnitTest用プログラムの実行をする場合trueにする<br/>引数が指定されていない場合はfalseで動作する</param>
+        public void StartProgram(string progName, string device, bool isUnitTest = false)
         {
-            List<string> arg = new List<string>()
-            {
-                progName,
-                device
-            };
-            Process.Start(sdkFolder_ + @"\bin\monkeydo.bat", arg);
+            var prc = new Process();
+            prc.StartInfo.FileName = sdkFolder_ + @"\bin\monkeydo.bat";
+            prc.StartInfo.ArgumentList.Add(progName);
+            prc.StartInfo.ArgumentList.Add(device);
+            if (isUnitTest) {
+                prc.StartInfo.ArgumentList.Add("/t");
+            }
+            if (Writer is not null) {
+                prc.StartInfo.UseShellExecute = false;
+                prc.StartInfo.RedirectStandardOutput = true;
+                prc.StartInfo.RedirectStandardError = true;
+                prc.OutputDataReceived += (sender, ev) =>
+                {
+                    if (Writer is not null)
+                        Writer.WriteLine(ev.Data);
+                };
+                prc.ErrorDataReceived += (sender, ev) =>
+                {
+                    if (Writer is not null)
+                        Writer.WriteLine(ev.Data);
+                };
+            }
+            if (prc.Start()) {
+                if (Writer is not null) {
+                    prc.BeginErrorReadLine();
+                    prc.BeginOutputReadLine();
+                }
+            }
         }
 
         /// <summary>
@@ -179,8 +202,9 @@ namespace AutomationConnectIQ.Lib
         /// <param name="project">プロジェクト情報</param>
         /// <param name="device">ビルド対象のデバイス</param>
         /// <param name="progName">出力実行形式ファイル名</param>
+        /// <param name="isUnitTestBuild">EvilのUnitTest用ビルドの場合trueにする<br/>引数が指定されていない場合はfalseで動作する</param>
         /// <returns>ビルドが正しく終了した場合true</returns>
-        public bool BuildProgram(Jungle project, string device, string progName)
+        public bool BuildProgram(Jungle project, string device, string progName, bool isUnitTestBuild = false)
         {
             if (!project.IsValidDevice(device)) {
                 return false;
@@ -210,6 +234,9 @@ namespace AutomationConnectIQ.Lib
                     project.JungleFile,
                 },
             };
+            if (isUnitTestBuild) {
+                startinfo.ArgumentList.Add("--unit-test");
+            }
 
             if (Writer is not null) {
                 startinfo.UseShellExecute = false;
