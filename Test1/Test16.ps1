@@ -13,7 +13,8 @@ $sdk.BuildProgram($proj, $deviceName)
 $sdk.StartProgram($proj.DefaultProgramPath, $deviceName)
 $sim.WaitForDeviceStart()
 
-$sim.IsEnabledHeatMap
+$sim.IsEnabledHeatMap		# <= V0.3追加項目
+
 $sim.KillDevice()
 
 $deviceName = "d2air"
@@ -21,4 +22,4 @@ $sdk.BuildProgram($proj, $deviceName)
 $sdk.StartProgram($proj.DefaultProgramPath, $deviceName)
 $sim.WaitForDeviceStart()
 
-$sim.IsEnabledHeatMap
+$sim.IsEnabledHeatMap		# <= V0.3追加項目
