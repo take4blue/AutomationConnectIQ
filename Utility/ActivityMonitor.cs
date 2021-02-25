@@ -8,6 +8,9 @@ using System.ComponentModel;
 
 namespace AutomationConnectIQ.Lib
 {
+    /// <summary>
+    /// アクティビティモニターの操作
+    /// </summary>
     public class ActivityMonitor
     {
         /// <summary>
