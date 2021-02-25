@@ -71,6 +71,11 @@ namespace AutomationConnectIQ.Lib
         /// 出力のログファイルへのストリーム
         /// </summary>
         public System.IO.StreamWriter Writer { set; private get; } = null;
+
+        /// <summary>
+        /// ビルド時の追加オプションの設定
+        /// </summary>
+        public string BuildOption { set; private get; }
 #endregion
 
         /// <summary>
@@ -88,7 +93,7 @@ namespace AutomationConnectIQ.Lib
             if (!File.Exists(Key) || !File.Exists(Project)) {
                 return false;
             }
-            var sdk = new GarminSDK() { Key = Key };
+            var sdk = new GarminSDK() { Key = Key, BuildOption = BuildOption };
             if (Writer is not null) {
                 sdk.Writer = Writer;
             }
@@ -139,7 +144,7 @@ namespace AutomationConnectIQ.Lib
             if (!File.Exists(Key) || !File.Exists(Project)) {
                 return false;
             }
-            var sdk = new GarminSDK() { Key = Key };
+            var sdk = new GarminSDK() { Key = Key, BuildOption = BuildOption };
             if (Writer is not null) {
                 sdk.Writer = Writer;
             }
@@ -202,7 +207,7 @@ namespace AutomationConnectIQ.Lib
             if (!File.Exists(Key) || !File.Exists(Project)) {
                 return false;
             }
-            var sdk = new GarminSDK() { Key = Key };
+            var sdk = new GarminSDK() { Key = Key, BuildOption = BuildOption };
             if (Writer is not null) {
                 sdk.Writer = Writer;
             }

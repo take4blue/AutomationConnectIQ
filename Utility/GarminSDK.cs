@@ -30,6 +30,7 @@ namespace AutomationConnectIQ.Lib
         private string sdkFolder_;
         private string version_;
         private string key_;
+        private string buildOption_;
 
         /// <summary>
         /// 現在のSDKのフォルダ名
@@ -48,6 +49,15 @@ namespace AutomationConnectIQ.Lib
         public string Key {
             set {
                 key_ = value;
+            }
+        }
+
+        /// <summary>
+        /// ビルド時の追加オプションの設定
+        /// </summary>
+        public string BuildOption {
+            set {
+                buildOption_ = value;
             }
         }
 
@@ -236,6 +246,13 @@ namespace AutomationConnectIQ.Lib
             };
             if (isUnitTestBuild) {
                 startinfo.ArgumentList.Add("--unit-test");
+            }
+            // ビルドオプションを引数に追加する
+            if (!string.IsNullOrEmpty(buildOption_)) {
+                var work = buildOption_.Split(' ');
+                foreach(var item in work) {
+                    startinfo.ArgumentList.Add(item);
+                }
             }
 
             if (Writer is not null) {

@@ -4,6 +4,11 @@
         <name>AutomationConnectIQ.Utility</name>
     </assembly>
     <members>
+        <member name="T:AutomationConnectIQ.Lib.ActivityMonitor">
+            <summary>
+            アクティビティモニターの操作
+            </summary>
+        </member>
         <member name="F:AutomationConnectIQ.Lib.ActivityMonitor.top_">
             <summary>
             シミュレーターのトップ要素
@@ -89,6 +94,11 @@
             出力のログファイルへのストリーム
             </summary>
         </member>
+        <member name="P:AutomationConnectIQ.Lib.Checker.BuildOption">
+            <summary>
+            ビルド時の追加オプションの設定
+            </summary>
+        </member>
         <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction)">
             <summary>
             指定されたデバイスに対して、ビルド＆チェックを実施する
@@ -147,6 +157,11 @@
             ビルド時のキーファイル
             </summary>
             <remarks>未設定の場合ビルドで必ずfalseになる</remarks>
+        </member>
+        <member name="P:AutomationConnectIQ.Lib.GarminSDK.BuildOption">
+            <summary>
+            ビルド時の追加オプションの設定
+            </summary>
         </member>
         <member name="P:AutomationConnectIQ.Lib.GarminSDK.Writer">
             <summary>
@@ -903,6 +918,12 @@
         <member name="M:AutomationConnectIQ.Lib.Win32Api.GetMenuStatus(System.IntPtr,System.Collections.Generic.List{System.String})">
             <summary>
             メニューのステータスを取得する
+            </summary>
+            <returns>trueの場合チェックがON状態</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Win32Api.IsEnabledMenu(System.IntPtr,System.Collections.Generic.List{System.String})">
+            <summary>
+            メニューが操作可能か確認する
             </summary>
             <returns>trueの場合チェックがON状態</returns>
         </member>

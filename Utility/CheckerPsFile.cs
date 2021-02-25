@@ -52,13 +52,13 @@ namespace AutomationConnectIQ.Lib
         }
 
 
-#region パラメータ類
+        #region パラメータ類
         /// <summary>
         /// テスト用のPowerShellスクリプトファイル<br/>
         /// ファイルが設定されていない場合はビルドのみ
         /// </summary>
         public string PSFile { set; private get; } = "";
-#endregion
+        #endregion
 
         /// <summary>
         /// 指定されたデバイスに対して、ビルド＆チェックを実施する
@@ -78,7 +78,7 @@ namespace AutomationConnectIQ.Lib
             if (PSFile.Length > 0 && !File.Exists(PSFile)) {
                 return false;
             }
-            var sdk = new GarminSDK() { Key = Key };
+            var sdk = new GarminSDK() { Key = Key, BuildOption = BuildOption };
             if (Writer is not null) {
                 sdk.Writer = Writer;
             }
@@ -125,7 +125,7 @@ namespace AutomationConnectIQ.Lib
             if (PSFile.Length > 0 && !File.Exists(PSFile)) {
                 return false;
             }
-            var sdk = new GarminSDK() { Key = Key };
+            var sdk = new GarminSDK() { Key = Key, BuildOption = BuildOption };
             if (Writer is not null) {
                 sdk.Writer = Writer;
             }

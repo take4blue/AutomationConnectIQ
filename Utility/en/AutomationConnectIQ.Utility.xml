@@ -4,6 +4,11 @@
     <name>AutomationConnectIQ.Utility</name>
   </assembly>
   <members>
+    <member name="T:AutomationConnectIQ.Lib.ActivityMonitor">
+      <summary>
+        Operation of Activity Monitor
+      </summary>
+    </member>
     <member name="F:AutomationConnectIQ.Lib.ActivityMonitor.top_">
       <summary>
         Top elements of the simulator
@@ -97,6 +102,11 @@
         Stream to output log file
       </summary>
     </member>
+    <member name="P:AutomationConnectIQ.Lib.Checker.BuildOption">
+      <summary>
+        Setting additional options at build time
+      </summary>
+    </member>
     <member name="M:AutomationConnectIQ.Lib.Checker.Check(System.String,AutomationConnectIQ.Lib.Checker.Simulation,AutomationConnectIQ.Lib.Checker.PrePostAction)">
       <summary>
         Perform build &amp; check for the specified device
@@ -156,6 +166,11 @@
         Key file used in build
       </summary>
       <remarks>If not set, it will always be false in the build</remarks>
+    </member>
+    <member name="P:AutomationConnectIQ.Lib.GarminSDK.BuildOption">
+      <summary>
+        Setting additional options at build time
+      </summary>
     </member>
     <member name="P:AutomationConnectIQ.Lib.GarminSDK.Writer">
       <summary>
@@ -905,6 +920,12 @@
     <member name="M:AutomationConnectIQ.Lib.Win32Api.GetMenuStatus(System.IntPtr,System.Collections.Generic.List{System.String})">
       <summary>
         Get the status of the menu
+      </summary>
+      <returns>If true, check is ON</returns>
+    </member>
+    <member name="M:AutomationConnectIQ.Lib.Win32Api.IsEnabledMenu(System.IntPtr,System.Collections.Generic.List{System.String})">
+      <summary>
+        Check if the menu can be operated
       </summary>
       <returns>If true, check is ON</returns>
     </member>
