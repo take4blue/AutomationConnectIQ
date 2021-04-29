@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestWith", "TestWith", "{5B
 		With\Test.runsettings = With\Test.runsettings
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PowerShell", "PowerShell", "{D6EE79A5-678B-40D7-9570-32BB293DB9EC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamplePS", "SamplePS", "{D6EE79A5-678B-40D7-9570-32BB293DB9EC}"
 	ProjectSection(SolutionItems) = preProject
 		Test1\Test1.ps1 = Test1\Test1.ps1
 		Test1\Test10.ps1 = Test1\Test10.ps1
