@@ -73,6 +73,20 @@ namespace AutomationConnectIQ.Lib
         }
 
         /// <summary>
+        /// Windowのクローズボタンを使用したウィンドウの閉じる動作
+        /// </summary>
+        private void Close()
+        {
+            if (monitor_ is not null) {
+                if (monitor_.TryGetCurrentPattern(WindowPattern.Pattern, out object obj)) {
+                    ((WindowPattern)obj).Close();
+                    monitor_ = null;
+                    grid_ = null;
+                }
+            }
+        }
+
+        /// <summary>
         /// 値を設定し、Activity Monitorウィンドウを閉じる
         /// </summary>
         public void Ok()
@@ -80,13 +94,12 @@ namespace AutomationConnectIQ.Lib
             if (monitor_ is not null) {
                 var guiItem = monitor_.FindAll(TreeScope.Children,
                         new AndCondition(
-                            new PropertyCondition(AutomationElement.NameProperty, "OK"),
+                            new PropertyCondition(AutomationElement.NameProperty, "Apply"),
                             new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Button))).Cast<AutomationElement>();
                 if (guiItem.Any()) {
                     if (guiItem.First().TryGetCurrentPattern(InvokePattern.Pattern, out object obj)) {
                         ((InvokePattern)obj).Invoke();
-                        monitor_ = null;
-                        grid_ = null;
+                        Close();
                     }
                 }
             }
@@ -97,19 +110,7 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         public void Cancel()
         {
-            if (monitor_ is not null) {
-                var guiItem = monitor_.FindAll(TreeScope.Children,
-                        new AndCondition(
-                            new PropertyCondition(AutomationElement.NameProperty, "Cancel"),
-                            new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Button))).Cast<AutomationElement>();
-                if (guiItem.Any()) {
-                    if (guiItem.First().TryGetCurrentPattern(InvokePattern.Pattern, out object obj)) {
-                        ((InvokePattern)obj).Invoke();
-                        monitor_ = null;
-                        grid_ = null;
-                    }
-                }
-            }
+            Close();
         }
 
         /// <summary>
