@@ -30,6 +30,17 @@ namespace AutomationConnectIQ.Lib.Tests
 
             Assert.AreEqual(garmin.SdkFolder, @"TestData\Test1\Sdk\Sdk2");
             Assert.AreEqual(garmin.Version, "3.2.3");
+            Assert.AreEqual(garmin.CompareVersion("3.2.3"), 0);
+            Assert.AreEqual(garmin.CompareVersion("3.2.0"), -1);
+            Assert.AreEqual(garmin.CompareVersion("3.2.4"), 1);
+            Assert.AreEqual(garmin.CompareVersion("3.1.3"), -1);
+            Assert.AreEqual(garmin.CompareVersion("3.3.3"), 1);
+            Assert.AreEqual(garmin.CompareVersion("2.2.3"), -1);
+            Assert.AreEqual(garmin.CompareVersion("4.2.3"), 1);
+            Assert.AreEqual(garmin.CompareVersion("3.1"), -1);
+            Assert.AreEqual(garmin.CompareVersion("3.3"), 1);
+            Assert.AreEqual(garmin.CompareVersion("2"), -1);
+            Assert.AreEqual(garmin.CompareVersion("4"), 1);
         }
 
         [TestMethod()]
@@ -79,11 +90,5 @@ namespace AutomationConnectIQ.Lib.Tests
             Assert.Fail();
         }
 
-        [TestMethod]
-        public void IQEnvTest()
-        {
-            var env = new IQEnvironment();
-            Assert.AreEqual(env.AppBase, Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Garmin\ConnectIQ");
-        }
     }
 }

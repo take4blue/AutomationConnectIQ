@@ -43,6 +43,38 @@ namespace AutomationConnectIQ.Lib
         public string Version { get => version_; }
 
         /// <summary>
+        /// バージョンの比較
+        /// </summary>
+        /// <param name="target">比較対象のバージョンで"4.1.0"とかの文字列で渡す</param>
+        /// <returns>targetと同じバージョンなら0、古いバージョンなら-1、新しいバージョンなら1</returns>
+        public int CompareVersion(string target)
+        {
+            return CompareVersion(version_, target);
+        }
+
+        /// <summary>
+        /// バージョンの比較
+        /// </summary>
+        /// <param name="current">比較元のバージョンで"4.1.0"とかの文字列で渡す</param>
+        /// <param name="target">比較対象のバージョンで"4.1.0"とかの文字列で渡す</param>
+        /// <returns>currentとtargetと同じバージョンなら0、targetが古いバージョンなら-1、targetが新しいバージョンなら1</returns>
+        static public int CompareVersion(string current, string target)
+        {
+            var cSplit = current.Split('.');
+            var tSplit = target.Split('.');
+            if (tSplit.Length <= cSplit.Length) {
+                for (int i = 0; i < tSplit.Length; i++) {
+                    var cNum = int.Parse(cSplit[i]);
+                    var tNum = int.Parse(tSplit[i]);
+                    if (cNum != tNum) {
+                        return (tNum - cNum) < 0 ? -1 : 1;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
         /// ビルド時のキーファイル
         /// </summary>
         /// <remarks>未設定の場合ビルドで必ずfalseになる</remarks>

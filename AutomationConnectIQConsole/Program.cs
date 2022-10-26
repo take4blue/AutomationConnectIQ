@@ -38,7 +38,20 @@ namespace AutomationConnectIQ.Cmd
                 IsEnabledHeatMap(simulator);
                 Console.ReadLine();
                 break;
+            case 8:
+                 SimulatorV4Test(simulator);
+                break;
             }
+        }
+
+        /// <summary>
+        /// 4.1で修正されたもののテスト
+        /// </summary>
+        /// <param name="simulator"></param>
+        static void SimulatorV4Test(Lib.Simulator simulator)
+        {
+            simulator.SetNotificationCount(5);
+            simulator.SetBatteryStatus(33, false);
         }
 
         static void IsEnabledHeatMap(Lib.Simulator simulator)
@@ -156,7 +169,8 @@ namespace AutomationConnectIQ.Cmd
         /// </summary>
         static void SimulatorGPSQualityTest(Lib.Simulator simulator)
         {
-            simulator.SetGPSQuality(Lib.Simulator.GPSQualityType.NotAvailable);
+            simulator.SetGPSQuality(Lib.Simulator.GPSQualityType.Usable);
+            simulator.SetGPSPosition(24.337611, 124.156117);
         }
 
         /// <summary>
@@ -334,6 +348,9 @@ namespace AutomationConnectIQ.Cmd
 
         static void Main(string[] args)
         {
+            var sdk = new AutomationConnectIQ.Lib.GarminSDK();
+            Console.WriteLine(sdk.Version);
+
             if (args.Length > 0) {
                 _ = int.TryParse(args[0], out int val);
                 if (val < 100) {

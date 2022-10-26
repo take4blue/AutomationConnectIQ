@@ -26,6 +26,11 @@
             ウィンドウを閉じる場合は、Ok/Cancelのどちらかのメソッドを呼ぶ
             </summary>
         </member>
+        <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Close">
+            <summary>
+            Windowのクローズボタンを使用したウィンドウの閉じる動作
+            </summary>
+        </member>
         <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Ok">
             <summary>
             値を設定し、Activity Monitorウィンドウを閉じる
@@ -151,6 +156,21 @@
             <summary>
             現在のSDKのバージョン
             </summary>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.CompareVersion(System.String)">
+            <summary>
+            バージョンの比較
+            </summary>
+            <param name="target">比較対象のバージョンで"4.1.0"とかの文字列で渡す</param>
+            <returns>targetと同じバージョンなら0、古いバージョンなら-1、新しいバージョンなら1</returns>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.GarminSDK.CompareVersion(System.String,System.String)">
+            <summary>
+            バージョンの比較
+            </summary>
+            <param name="current">比較元のバージョンで"4.1.0"とかの文字列で渡す</param>
+            <param name="target">比較対象のバージョンで"4.1.0"とかの文字列で渡す</param>
+            <returns>currentとtargetと同じバージョンなら0、targetが古いバージョンなら-1、targetが新しいバージョンなら1</returns>
         </member>
         <member name="P:AutomationConnectIQ.Lib.GarminSDK.Key">
             <summary>
@@ -496,6 +516,19 @@
             <summary>
             バッテリーの充電状態、充電率を設定する
             </summary>
+            <param name="chargingRate">充電率(0～100)</param>
+            <param name="isCharging">充電中の場合true</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">chargingRateが0～100以外</exception>
+        </member>
+        <member name="M:AutomationConnectIQ.Lib.Simulator.SetBatteryStatus(System.Double,System.Int32,System.Boolean)">
+            <summary>
+            バッテリーの充電状態、充電率、残日数を設定する。
+            残存日数の設定ができないので、開放していない。
+            </summary>
+            <param name="chargingRate">充電率(0～100)</param>
+            <param name="daysRemaining">残存日数(0～50)</param>
+            <param name="isCharging">充電中の場合true</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">chargingRateが0～100以外。またはdaysRemainingが0～50以外。</exception>
         </member>
         <member name="M:AutomationConnectIQ.Lib.Simulator.SetBleSettings(System.String)">
             <summary>

@@ -17,6 +17,8 @@ namespace AutomationConnectIQ.Lib
         /// </summary>
         private AutomationElement top_;
 
+        private GarminSDK sdk_;
+
         /// <summary>
         /// デフォルトコンストラクタ
         /// </summary>
@@ -41,6 +43,8 @@ namespace AutomationConnectIQ.Lib
         /// <param name="sdk"></param>
         public void Open(GarminSDK sdk)
         {
+            sdk_ = sdk;
+
             if (top_ is not null) {
                 try {
                     var current = top_.Current;
@@ -50,7 +54,15 @@ namespace AutomationConnectIQ.Lib
                     top_ = null;
                 }
             }
-            var process = Utility.FindTitleProcess("Connect IQ Device Simulator", 10);
+            String title;
+            if (sdk_.CompareVersion("4.1.5") > 0) {
+                // 4.1.5未満のバージョン
+                title = "Connect IQ Device Simulator";
+            }
+            else {
+                title = "CIQ Simulator";
+            }
+            var process = Utility.FindTitleProcess(title, 10);
             if (process is null) {
                 process = sdk.StartSimUI();
                 for (int i = 0; i < 1000 && (process.MainWindowHandle == IntPtr.Zero || !process.Responding); i++) {

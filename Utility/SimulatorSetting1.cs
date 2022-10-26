@@ -67,114 +67,114 @@ namespace AutomationConnectIQ.Lib
                 "Settings", "Language"
             };
             switch (lang) {
-            case Language.Arabic:
-                menu.Add("Arabic (ara)");
-                break;
-            case Language.Bulgarian:
-                menu.Add("Bulgarian (bul)");
-                break;
-            case Language.Czech:
-                menu.Add("Czech (ces)");
-                break;
-            case Language.Danish:
-                menu.Add("Danish (dan)");
-                break;
-            case Language.German:
-                menu.Add("German (deu)");
-                break;
-            case Language.Dutch:
-                menu.Add("Dutch (dut)");
-                break;
-            case Language.English:
-                menu.Add("English (eng)");
-                break;
-            case Language.Estonian:
-                menu.Add("Estonian (est)");
-                break;
-            case Language.Finnish:
-                menu.Add("Finnish (fin)");
-                break;
-            case Language.French:
-                menu.Add("French (fre)");
-                break;
-            case Language.Greek:
-                menu.Add("Greek (gre)");
-                break;
-            case Language.Hebrew:
-                menu.Add("Hebrew (heb)");
-                break;
-            case Language.Croatian:
-                menu.Add("Croatian (hrv)");
-                break;
-            case Language.Hungarian:
-                menu.Add("Hungarian (hun)");
-                break;
-            case Language.Italian:
-                menu.Add("Italian (ita)");
-                break;
-            case Language.Latvian:
-                menu.Add("Latvian (lav)");
-                break;
-            case Language.Lithuanian:
-                menu.Add("Lithuanian (lit)");
-                break;
-            case Language.Norwegian:
-                menu.Add("Norwegian (nob)");
-                break;
-            case Language.Polish:
-                menu.Add("Polish (pol)");
-                break;
-            case Language.Portuguese:
-                menu.Add("Portuguese (por)");
-                break;
-            case Language.Romanian:
-                menu.Add("Romanian (ron)");
-                break;
-            case Language.Russian:
-                menu.Add("Russian (rus)");
-                break;
-            case Language.Slovak:
-                menu.Add("Slovak (slo)");
-                break;
-            case Language.Slovenian:
-                menu.Add("Slovenian (slv)");
-                break;
-            case Language.Spanish:
-                menu.Add("Spanish (spa)");
-                break;
-            case Language.Swedish:
-                menu.Add("Swedish (swe)");
-                break;
-            case Language.Turkish:
-                menu.Add("Turkish (tur)");
-                break;
-            case Language.Ukrainian:
-                menu.Add("Ukrainian (ukr)");
-                break;
-            case Language.BahasaIndonesia:
-                menu.Add("Bahasa Indonesia (ind)");
-                break;
-            case Language.BahasaMalaysia:
-                menu.Add("Bahasa Malaysia (zsm)");
-                break;
-            case Language.ChineseSimplified:
-                menu.Add("Chinese (Simplified) (zhs)");
-                break;
-            case Language.ChineseTraditional:
-                menu.Add("Chinese (Traditional) (zht)");
-                break;
-            case Language.Japanese:
-                menu.Add("Japanese (jpn)");
-                break;
-            case Language.Korean:
-                menu.Add("Korean (kor)");
-                break;
-            case Language.Thai:
-                menu.Add("Thai (tha)");
-                break;
-            case Language.Vietnamese:
-                menu.Add("Vietnamese (vie)");
-                break;
+                case Language.Arabic:
+                    menu.Add("Arabic (ara)");
+                    break;
+                case Language.Bulgarian:
+                    menu.Add("Bulgarian (bul)");
+                    break;
+                case Language.Czech:
+                    menu.Add("Czech (ces)");
+                    break;
+                case Language.Danish:
+                    menu.Add("Danish (dan)");
+                    break;
+                case Language.German:
+                    menu.Add("German (deu)");
+                    break;
+                case Language.Dutch:
+                    menu.Add("Dutch (dut)");
+                    break;
+                case Language.English:
+                    menu.Add("English (eng)");
+                    break;
+                case Language.Estonian:
+                    menu.Add("Estonian (est)");
+                    break;
+                case Language.Finnish:
+                    menu.Add("Finnish (fin)");
+                    break;
+                case Language.French:
+                    menu.Add("French (fre)");
+                    break;
+                case Language.Greek:
+                    menu.Add("Greek (gre)");
+                    break;
+                case Language.Hebrew:
+                    menu.Add("Hebrew (heb)");
+                    break;
+                case Language.Croatian:
+                    menu.Add("Croatian (hrv)");
+                    break;
+                case Language.Hungarian:
+                    menu.Add("Hungarian (hun)");
+                    break;
+                case Language.Italian:
+                    menu.Add("Italian (ita)");
+                    break;
+                case Language.Latvian:
+                    menu.Add("Latvian (lav)");
+                    break;
+                case Language.Lithuanian:
+                    menu.Add("Lithuanian (lit)");
+                    break;
+                case Language.Norwegian:
+                    menu.Add("Norwegian (nob)");
+                    break;
+                case Language.Polish:
+                    menu.Add("Polish (pol)");
+                    break;
+                case Language.Portuguese:
+                    menu.Add("Portuguese (por)");
+                    break;
+                case Language.Romanian:
+                    menu.Add("Romanian (ron)");
+                    break;
+                case Language.Russian:
+                    menu.Add("Russian (rus)");
+                    break;
+                case Language.Slovak:
+                    menu.Add("Slovak (slo)");
+                    break;
+                case Language.Slovenian:
+                    menu.Add("Slovenian (slv)");
+                    break;
+                case Language.Spanish:
+                    menu.Add("Spanish (spa)");
+                    break;
+                case Language.Swedish:
+                    menu.Add("Swedish (swe)");
+                    break;
+                case Language.Turkish:
+                    menu.Add("Turkish (tur)");
+                    break;
+                case Language.Ukrainian:
+                    menu.Add("Ukrainian (ukr)");
+                    break;
+                case Language.BahasaIndonesia:
+                    menu.Add("Bahasa Indonesia (ind)");
+                    break;
+                case Language.BahasaMalaysia:
+                    menu.Add("Bahasa Malaysia (zsm)");
+                    break;
+                case Language.ChineseSimplified:
+                    menu.Add("Chinese (Simplified) (zhs)");
+                    break;
+                case Language.ChineseTraditional:
+                    menu.Add("Chinese (Traditional) (zht)");
+                    break;
+                case Language.Japanese:
+                    menu.Add("Japanese (jpn)");
+                    break;
+                case Language.Korean:
+                    menu.Add("Korean (kor)");
+                    break;
+                case Language.Thai:
+                    menu.Add("Thai (tha)");
+                    break;
+                case Language.Vietnamese:
+                    menu.Add("Vietnamese (vie)");
+                    break;
             }
 
             return Utility.ActionMenu(top_, menu);
@@ -306,17 +306,17 @@ namespace AutomationConnectIQ.Lib
                 "Settings", "First Day of Week"
             };
             switch (type) {
-            case DayOfWeek.Saturday:
-                menu.Add("Saturday");
-                break;
-            case DayOfWeek.Sunday:
-                menu.Add("Sunday");
-                break;
-            case DayOfWeek.Monday:
-                menu.Add("Monday");
-                break;
-            default:
-                throw new ArgumentException(type.ToString());
+                case DayOfWeek.Saturday:
+                    menu.Add("Saturday");
+                    break;
+                case DayOfWeek.Sunday:
+                    menu.Add("Sunday");
+                    break;
+                case DayOfWeek.Monday:
+                    menu.Add("Monday");
+                    break;
+                default:
+                    throw new ArgumentException(type.ToString());
             }
             Utility.ActionMenu(top_, menu);
         }
@@ -397,10 +397,28 @@ namespace AutomationConnectIQ.Lib
             if (num < 0 || num > 20) {
                 throw new ArgumentOutOfRangeException(num.ToString());
             }
-            OpenSettingWindow("Set Notification Count", "Set number of notifications", (settingWindow) =>
-            {
-                return SetSpinValue(settingWindow, num, "Number notifications:");
-            });
+            if (sdk_.CompareVersion("4.2") > 0) {
+                // 4.2未満の処理
+                OpenSettingWindow("Set Notification Count", "Set number of notifications", (settingWindow) =>
+                {
+                    return SetSpinValue(settingWindow, num, "Number notifications:");
+                });
+            }
+            else {
+                // Ver4.2対応
+                OpenSettingWindow("Set Phone Notifications", "Set Phone Notifications", (settingWindow) =>
+                {
+                    var guiParts = settingWindow.FindAll(TreeScope.Subtree,
+                           new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Spinner)).Cast<AutomationElement>();
+                    if (guiParts.Count() >= 1) {
+                        Utility.SetSpinText(guiParts.First(), num.ToString());
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                });
+            }
         }
 
         /// <summary>
@@ -422,6 +440,9 @@ namespace AutomationConnectIQ.Lib
         /// <summary>
         /// バッテリーの充電状態、充電率を設定する
         /// </summary>
+        /// <param name="chargingRate">充電率(0～100)</param>
+        /// <param name="isCharging">充電中の場合true</param>
+        /// <exception cref="ArgumentOutOfRangeException">chargingRateが0～100以外</exception>
         public void SetBatteryStatus(double chargingRate, bool isCharging)
         {
             if (chargingRate < 0.0 || chargingRate > 100.0) {
@@ -429,12 +450,59 @@ namespace AutomationConnectIQ.Lib
             }
             OpenSettingWindow("Set Battery Status", "Set Battery Status", (settingWindow) =>
             {
-                // 入力フィールドのスピンに値を入れる
                 bool result = false;
+                // 入力フィールドのスピンに充電率を文字列化して入れる
                 var guiParts = settingWindow.FindAll(TreeScope.Subtree,
                        new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Spinner)).Cast<AutomationElement>();
-                if (guiParts.Count() == 1) {
+                if (guiParts.Count() >= 1) {
                     Utility.SetSpinText(guiParts.First(), chargingRate.ToString());
+                    result = true;
+                }
+                if (result) {
+                    guiParts = settingWindow.FindAll(TreeScope.Subtree,
+                         new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.CheckBox)).Cast<AutomationElement>();
+                    if (guiParts.Count() == 1) {
+                        if (guiParts.First().TryGetCurrentPattern(TogglePattern.Pattern, out object obj)) {
+                            var toggle = obj as TogglePattern;
+                            if ((toggle.Current.ToggleState == ToggleState.Off && isCharging) || (toggle.Current.ToggleState == ToggleState.On && !isCharging)) {
+                                toggle.Toggle();
+                            }
+                            result = true;
+                        }
+                    }
+                }
+
+                return result;
+            });
+        }
+
+        /// <summary>
+        /// バッテリーの充電状態、充電率、残日数を設定する。
+        /// 残存日数の設定ができないので、開放していない。
+        /// </summary>
+        /// <param name="chargingRate">充電率(0～100)</param>
+        /// <param name="daysRemaining">残存日数(0～50)</param>
+        /// <param name="isCharging">充電中の場合true</param>
+        /// <exception cref="ArgumentOutOfRangeException">chargingRateが0～100以外。またはdaysRemainingが0～50以外。</exception>
+        private void SetBatteryStatus(double chargingRate, int daysRemaining, bool isCharging)
+        {
+            if (chargingRate < 0.0 || chargingRate > 100.0) {
+                throw new ArgumentOutOfRangeException(chargingRate.ToString());
+            }
+            if (daysRemaining < 0 || daysRemaining > 50) {
+                throw new ArgumentOutOfRangeException(daysRemaining.ToString());
+            }
+            OpenSettingWindow("Set Battery Status", "Set Battery Status", (settingWindow) =>
+            {
+                bool result = false;
+                // 入力フィールドのスピンに充電率、残日数を文字列化して入れる
+                var guiParts = settingWindow.FindAll(TreeScope.Subtree,
+                       new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Spinner)).Cast<AutomationElement>();
+                if (guiParts.Count() >= 1) {
+                    Utility.SetSpinText(guiParts.First(), chargingRate.ToString());
+                    if (guiParts.Count() >= 2) {
+                        Utility.SetSpinText(guiParts.Last(), daysRemaining.ToString());
+                    }
                     result = true;
                 }
                 if (result) {

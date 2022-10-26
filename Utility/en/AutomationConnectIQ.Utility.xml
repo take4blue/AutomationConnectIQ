@@ -26,6 +26,11 @@
         To close the window, call either Ok / Cancel method
       </summary>
     </member>
+    <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Close">
+      <summary>
+		  Window closing behavior using Window's close button
+	  </summary>
+    </member>
     <member name="M:AutomationConnectIQ.Lib.ActivityMonitor.Ok">
       <summary>
         Set the value and close the Activity Monitor window
@@ -500,20 +505,33 @@
         Set the number of notifications
       </summary>
       <param name="num">Number of notifications(0-20)</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">numが0-20以外</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">num is other than 0-20</exception>
     </member>
     <member name="M:AutomationConnectIQ.Lib.Simulator.SetAlarmCount(System.Int32)">
       <summary>
         Set the number of alarms
       </summary>
       <param name="num">alarms(0-3)</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">numが0-3以外</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">num is other than 0-3</exception>
     </member>
     <member name="M:AutomationConnectIQ.Lib.Simulator.SetBatteryStatus(System.Double,System.Boolean)">
       <summary>
         Set the charge status and charge rate of the battery
       </summary>
-    </member>
+	  <param name="chargingRate">Chargin rate(0～100)</param>
+	  <param name="isCharging">Is charging</param>
+	  <exception cref="T:System.ArgumentOutOfRangeException">chargingRate is not 0 to 100</exception>
+	</member>
+	<member name="M:AutomationConnectIQ.Lib.Simulator.SetBatteryStatus(System.Double,System.Int32,System.Boolean)">
+	  <summary>
+		  Set battery state of charge, rate of charge, and remaining days.
+		  I can't set the remaining days, so I haven't opened it.
+	  </summary>
+	  <param name="chargingRate">Chargin rate(0～100)</param>
+	  <param name="daysRemaining">Days remaining(0～50)</param>
+	  <param name="isCharging">Is charging</param>
+	  <exception cref="T:System.ArgumentOutOfRangeException">chargingRate is other than 0-100. Or daysRemaining is other than 0-50.</exception>
+	</member>
     <member name="M:AutomationConnectIQ.Lib.Simulator.SetBleSettings(System.String)">
       <summary>
         Set the BLE connection port
